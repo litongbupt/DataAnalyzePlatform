@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"> 
+     
+    <!-- jdbc.properties文件路径  --> 
+    <bean 
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+        <property name="locations" 
+        value="classpath:/com/bupt/config/jdbc.properties" /> 
+    </bean>
+     
+    <!-- 数据源的配置 --> 
+    <bean id="dataSourcePC" class="org.apache.commons.dbcp.BasicDataSource" 
+        destroy-method="close"> 
+        <property name="driverClassName" value="${driverPC}" /> 
+        <property name="url" value="${urlPC}" /> 
+        <property name="username" value="${userPC}" /> 
+        <property name="password" value="${passwordPC}" /> 
+        <!-- data source configuration --> 
+        <property name="initialSize" value="60" /><!-- initial connections --> 
+        <property name="maxActive" value="100" /><!-- MAX connections --> 
+        <property name="maxIdle" value="50" /><!-- MAX idle connections --> 
+        <property name="minIdle" value="10" /><!-- MIN idle connections --> 
+        <!-- 处理mysql 8小时自动断开连接的问题 --> 
+        <property name="testWhileIdle" value="true" /> 
+        <property name="testOnBorrow" value="false" /> 
+        <property name="testOnReturn" value="false" /> 
+        <property name="validationQuery" value="select 1" /> 
+        <property name="timeBetweenEvictionRunsMillis" value="20000" /> 
+        <property name="numTestsPerEvictionRun" value="100" /> 
+    </bean> 
+    
+
+    <!-- 事务相关控制 --> 
+    <bean id="transactionManagerPC" 
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+        <property name="dataSource" ref="dataSourcePC" /> 
+    </bean> 
+    <tx:advice id="userTxAdvicePC" transaction-manager="transactionManagerPC"> 
+        <tx:attributes> 
+        <!-- 没有配置只读 -->
+      		<tx:method name="validate" propagation="REQUIRED" read-only="true" 
+                rollback-for="java.lang.Exception"/> 
+            <tx:method name="*" propagation="REQUIRED" read-only="false" 
+                rollback-for="java.lang.Exception"/> 
+        </tx:attributes> 
+    </tx:advice> 
+    <aop:config> 
+        <aop:pointcut id="pointcutPC" 
+            expression="execution(* com.bupt.app.multivrPC.service..*.*(..))" /> 
+             <!-- 把事务控制在Business层 --> 
+        <aop:advisor pointcut-ref="pointcutPC" advice-ref="userTxAdvicePC" /> 
+    </aop:config> 
+    
+    <!-- MyBatis sqlSessionFactory 配置 mybatis--> 
+    <bean id="sqlSessionFactoryPC" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+        <property name="dataSource" ref="dataSourcePC" /> 
+		<!--
+			该属性用来指定MyBatis的XML配置文件路径,跟Spring整合时，编写MyBatis映射文件的目的无非是配置一下typeAlias、setting之类的
+			元素。不用在其中指定数据源，或者事务处理方式。就算配置了也会被忽略。因为这些都是使用Spring中的配置
+			。当然如果你不打算添加typeAlias 之类的设置的话，你连MyBatis的配置文件都不用写，更不用配置这个属性了
+		-->
+		<!--<property name="configLocation" value="classpath:/com/bupt/mybatis/SqlMapConfig.xml" /> -->
+		<!-- 该配置文件用来指定Mapper映射文件的位置 ，如果映射文件与相应的接口同名，且在同一路径下，那么可以不配置该选项,也可以在MybatisConfig.xml文件里配置mapper-->
+   		<!--<property name="mapperLocations" value="src/UserMapper.xml"/>-->
+   		<!-- 要映射类的包路径，如果使用了这种方式，则configLocation中不必再进行声明
+    	<property name="typeAliasesPackage" value="${mybatis.alias.basepackage}" />   -->
+    </bean> 
+    
+    <!--  注册Mapper，有4种方式详见 http://litongbupt.iteye.com/blog/WAP893793 选以下方式的原因是可以配置多个数据库-->
+    <!-- PC多VR词表查询Mapper -->
+	<bean id="wordPCMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+ 		 <property name="mapperInterface" value="com.bupt.app.multivrPC.dao.WordPCMapper" />  
+ 		 <property name="sqlSessionFactory" ref="sqlSessionFactoryPC" />  
+	</bean>
+    
+    <!-- 
+    <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource" 
+        destroy-method="close"> 
+        <property name="driverClassName" value="${driverWAP}" /> 
+        <property name="url" value="${urlWAP}" /> 
+        <property name="username" value="${userWAP}" /> 
+        <property name="password" value="${passwordWAP}" /> 
+        <property name="initialSize" value="60" /> 
+        <property name="maxActive" value="100" />
+        <property name="maxIdle" value="50" />
+        <property name="minIdle" value="10" />
+        <property name="testWhileIdle" value="true" /> 
+        <property name="testOnBorrow" value="false" /> 
+        <property name="testOnReturn" value="false" /> 
+        <property name="validationQuery" value="select 1" /> 
+        <property name="timeBetweenEvictionRunsMillis" value="20000" /> 
+        <property name="numTestsPerEvictionRun" value="100" /> 
+    </bean> 
+    
+    <bean id="transactionManagerWAP" 
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+        <property name="dataSource" ref="dataSourceWAP" /> 
+    </bean> 
+    <tx:advice id="userTxAdviceWAP" transaction-manager="transactionManagerWAP"> 
+        <tx:attributes> 
+      		<tx:method name="validate" propagation="REQUIRED" read-only="true" 
+                rollback-for="java.lang.Exception"/> 
+            <tx:method name="*" propagation="REQUIRED" read-only="false" 
+                rollback-for="java.lang.Exception"/> 
+        </tx:attributes> 
+    </tx:advice> 
+    <aop:config> 
+        <aop:pointcut id="pointcutWAP" 
+            expression="execution(* com.bupt.app.multivrWap.service..*.*(..))" /> 
+        <aop:advisor pointcut-ref="pointcutWAP" advice-ref="userTxAdviceWAP" /> 
+    </aop:config>     
+    
+    <bean id="sqlSessionFactoryWAP" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+        <property name="dataSource" ref="dataSourceWAP" /> 
+    </bean> 
+     -->
+    
+	
+	
+</beans>
