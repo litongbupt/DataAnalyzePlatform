@@ -35,5 +35,5 @@ String themesPath = request.getScheme()+"://"+request.getServerName()+":"+reques
 //var global_userId = $("#global_userId").val();
 //var global_role = $("#global_role").val();
 var golbal_context =  $("#global_context").val();
-//var golbal_jsp_position = golbal_context+"/application/modules";
+var golbal_jsp_position = golbal_context+"/application/modules";
 </script>

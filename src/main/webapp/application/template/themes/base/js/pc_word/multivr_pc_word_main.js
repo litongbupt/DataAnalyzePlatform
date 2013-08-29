@@ -33,7 +33,7 @@ $(function(){
 	    sortorder: "asc",
 	    //rowNum:-1,
 	    rowNum:20,
-	    rowList:[20,50,100,200,1000],
+	    rowList:[20,50,100,200,1000,10000],
 	    viewrecords: true,
 	    gridview: true,
 	    pgbuttons:true,
