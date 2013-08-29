@@ -10,6 +10,6 @@ userWap=root
 passwordWap=yang1290
 #PC VRtype database
 pcVrTypeDriver=com.mysql.jdbc.Driver
-pcVrTypeUrl=jdbc:mysql://10.13.212.120:3306/open_data
+pcVrTypeUrl=jdbc:mysql://vropen01.web.cnc:3306/open_data
 pcVrTypeUser=open_data
 pcVrTypePassword=aladdin@2010

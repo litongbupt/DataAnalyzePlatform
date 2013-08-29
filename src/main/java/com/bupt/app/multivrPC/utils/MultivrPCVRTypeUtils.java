@@ -45,8 +45,6 @@ public class MultivrPCVRTypeUtils {
 			map.put("90000010_1", "翻译长句");
 			map.put("90000010_2", "翻译词典");
 			map.put("20009604", "酷讯机票国内城市到城市带flash");
-			//测试用
-			
 			Connection conn = null;
 			Statement st = null;
 			ResultSet rs = null;
@@ -64,8 +62,9 @@ public class MultivrPCVRTypeUtils {
 				
 				// 5.处理结果
 				while (rs.next()) {
-					//测试 TODO
+					//测试 TODO 
 					map.put(rs.getString(1),rs.getString(1));
+					//map.put(rs.getString(1),rs.getString(2));
 					// 参数中的1,2,3是指sql中的列索引
 				}
 			} catch (SQLException e) {
