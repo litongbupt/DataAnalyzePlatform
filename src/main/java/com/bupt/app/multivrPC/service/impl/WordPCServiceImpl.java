@@ -110,21 +110,17 @@ public class WordPCServiceImpl implements WordPCService {
 		//获取结果列表
 		List<WordPC> wordPCs = wordPCMapper.selectByExample(wordPCExample);
 		//获取VR类型 为了展示方便这里先不转换VR类型了
-		//Map<String, String> vrMap = MultivrPCVRTypeUtils.getVRType();
+		Map<String, String> vrMap = MultivrPCVRTypeUtils.getVRType();
 		
 		List<WordPCDTO> wordDTOList = new ArrayList<WordPCDTO>();
 		WordPCDTO wordPCDTO = null;
 		for (WordPC wordPC : wordPCs) {
 			wordPCDTO = new WordPCDTO();
-			try {
-				BeanUtils.copyProperties(wordPCDTO, wordPC);
-				//VR类型转换
-				wordPCDTO.setVrId(wordPC.getType());
-				//wordPCDTO.setType(vrMap.get(wordPC.getType()));
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
+			Utils.copyProperties(wordPCDTO, wordPC);
+			//VR类型转换
+			wordPCDTO.setVrId(wordPC.getType());
+			if(vrMap.containsKey(wordPC.getType())){
+				wordPCDTO.setType(vrMap.get(wordPC.getType()));
 			}
 			wordDTOList.add(wordPCDTO);
 		}
