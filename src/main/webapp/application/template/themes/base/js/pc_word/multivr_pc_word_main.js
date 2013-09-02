@@ -23,14 +23,14 @@ $(function(){
 	        {name:"abtest",index:"abtest",label : "abtest",width:30,sortable:true,align:"center"},
 	        {name:"clickid",index:"clickid",label : "clickid",width:30,sortable:true,align:"center"},
 	        {name:"hour",index:"hour",label : "时间",width:30,sortable:true,align:"center"},
-	        {name:"pv",index:"pv",label : "展现量",width:30,sortable:true,align:"center" },
-	        {name:"click",index:"click",label : "点击量",width:30,sortable:true,align:"center" },
-	        {name:"eclpv",index:"eclpv",label : "最终点击",width:30,sortable:true,align:"center" }
+	        {name:"pv",index:"pv",label : "展现量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
+	        {name:"click",index:"click",label : "点击量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
+	        {name:"eclpv",index:"eclpv",label : "最终点击",width:30,sortable:true,align:"center",firstsortorder:"desc" }
 	        //{name:"setup",label : "配&nbsp;置",width:30,sortable:false,align:"center" }
 		 ],
 	    pager: "#listPager",	    
 	    sortname: "type",
-	    sortorder: "asc",
+	    sortorder: "desc",
 	    //rowNum:-1,
 	    rowNum:20,
 	    rowList:[20,50,100,200,1000,10000],
@@ -138,10 +138,10 @@ function initTime(){
 	var LSTR_DD=LINT_DD > 10?LINT_DD:("0"+LINT_DD) 
 	//得到最终结果  
 	uom = uom.getFullYear() + "-" + LSTR_MM + "-" + LSTR_DD; 
-	//$("#query_startTime").val(uom+ " 00:00:00");
-	$("#query_startTime").val("2013-08-08 00:00:00");
-	//$("#query_endTime").val(uom+ " 23:00:00");
-	$("#query_endTime").val("2013-08-08 23:00:00");
+	$("#query_startTime").val(uom+ " 00:00:00");
+	//$("#query_startTime").val("2013-08-08 00:00:00");
+	$("#query_endTime").val(uom+ " 23:00:00");
+	//$("#query_endTime").val("2013-08-08 23:00:00");
 }
 
 //保存当前选择的行Id
