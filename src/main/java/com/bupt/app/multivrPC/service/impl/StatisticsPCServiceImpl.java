@@ -1,6 +1,5 @@
 package com.bupt.app.multivrPC.service.impl;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -10,7 +9,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,6 +43,9 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 		StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
 		//设置默认选择哪张表
 		statisticsPCExample.setDate(Utils.lastDate(new Date()));
+		if(debug){
+			log.debug("date:"+Utils.lastDate(new Date()));
+		}
 		//测试 TODO
 		//statisticsPCExample.setDate("20130808");
 		//添加查询条件
@@ -103,7 +104,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			String startTime = request.getParameter("startTime");
 			String endTime = request.getParameter("endTime");
 			if(debug){
-				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startTime:"+startTime+"endTime:"+endTime);
+				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startTime:"+startTime+"endTime:"+endTime+"date:"+Utils.getDate(startTime));
 			}
 			statisticsPCExample.setDate(Utils.getDate(startTime));
 			Criteria criteria = statisticsPCExample.createCriteria();
