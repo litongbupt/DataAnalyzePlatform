@@ -56,15 +56,15 @@ public class MultivrPCVRTypeUtils {
 				st = conn.createStatement();
 
 				// 4.执行语句
-				rs = st.executeQuery("SELECT DISTINCT vr_type,vr_id,res_name FROM vr_resource");
+				//rs = st.executeQuery("SELECT DISTINCT vr_type,vr_id,res_name FROM vr_resource");
 				//测试 TODO
-				//rs = st.executeQuery("SELECT distinct(type) FROM tb_detail_20130808");
+				rs = st.executeQuery("SELECT distinct(type) FROM tb_detail_20130808");
 				
 				// 5.处理结果
 				while (rs.next()) {
 					//测试 TODO 
-					//map.put(rs.getString(1),rs.getString(1));
-					map.put(rs.getString(2),rs.getString(3));
+					map.put(rs.getString(1),rs.getString(1));
+					//map.put(rs.getString(2),rs.getString(3));
 					// 参数中的1,2,3是指sql中的列索引
 				}
 			} catch (SQLException e) {

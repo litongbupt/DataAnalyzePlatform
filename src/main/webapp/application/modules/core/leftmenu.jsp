@@ -15,7 +15,7 @@
             <dt><div class="icon9">PC多VR</div></dt>
             <dd>
                 <a  href="javascript:void(0)"  onClick="Menu('<%=modulesPath %>pc_word/multivr_pc_word_main.jsp');">词表查询</a>
-                <a  href="javascript:void(0)"  onClick="Menu('<%=modulesPath %>core/indexContent.jsp');">统计信息</a>
+                <a  href="javascript:void(0)"  onClick="Menu('<%=modulesPath %>pc_statistics/multivr_pc_statistics_main.jsp');">统计信息</a>
             </dd>
             <dt><div class="icon7">WAP多VR</div></dt>
             <dd>

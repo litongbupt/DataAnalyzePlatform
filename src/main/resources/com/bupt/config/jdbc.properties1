@@ -1,15 +1,15 @@
 #PC VR database
 driverPC=com.mysql.jdbc.Driver
-urlPC=jdbc:mysql://localhost:3306/multivr_pc?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
+urlPC=jdbc:mysql://10.16.135.22:5029/multivr_pc?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
 userPC=root
 passwordPC=yang1290
 #Wap VR database
 driverWap=com.mysql.jdbc.Driver
-urlWap=jdbc:mysql://localhost:3306/multivr_wap?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
+urlWap=jdbc:mysql://localhost:3306/iframework?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
 userWap=root
 passwordWap=yang1290
 #PC VRtype database
 pcVrTypeDriver=com.mysql.jdbc.Driver
-pcVrTypeUrl=jdbc:mysql://localhost:3306/multivr_pc?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull
-pcVrTypeUser=root
-pcVrTypePassword=yang1290
+pcVrTypeUrl=jdbc:mysql://vropen01.web.cnc:3306/open_data
+pcVrTypeUser=open_data
+pcVrTypePassword=aladdin@2010
