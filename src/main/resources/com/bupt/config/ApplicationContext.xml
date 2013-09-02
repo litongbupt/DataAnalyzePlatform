@@ -84,7 +84,12 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
  		 <property name="mapperInterface" value="com.bupt.app.multivrPC.dao.WordPCMapper" />  
  		 <property name="sqlSessionFactory" ref="sqlSessionFactoryPC" />  
 	</bean>
-    
+
+    <!-- PC多VR词表查询Mapper -->
+	<bean id="statisticsPCMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
+ 		 <property name="mapperInterface" value="com.bupt.app.multivrPC.dao.StatisticsPCMapper" />  
+ 		 <property name="sqlSessionFactory" ref="sqlSessionFactoryPC" />  
+	</bean>    
     <!-- 
     <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource" 
         destroy-method="close"> 

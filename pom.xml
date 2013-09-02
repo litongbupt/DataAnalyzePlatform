@@ -26,11 +26,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.13</version>
-		</dependency>
 		<!-- 此处开始就是Spring 所有的jar了，spring3.0的jar包拆分了，所以很多 -->
 		<!-- Core utilities used by other modules. Define this if you use Spring 
 			Utility APIs (org.springframework.core.*/org.springframework.util.*) -->

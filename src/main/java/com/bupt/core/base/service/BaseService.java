@@ -19,7 +19,7 @@ public interface BaseService<T, K> {
 	 * @return 删除记录的条数
 	 * @author 李彤 2013-8-27 下午9:42:19
 	 */
-	int deleteByPrimaryKey(Integer id);
+	//int deleteByPrimaryKey(Integer id);
 
 	/**
 	 * 插入记录
@@ -27,7 +27,7 @@ public interface BaseService<T, K> {
 	 * @return 影响的记录条数
 	 * @author 李彤 2013-8-27 下午9:43:13
 	 */
-	int insert(T record);
+	//int insert(T record);
 
 	/**
 	 * 插入不为null的数据
@@ -35,7 +35,7 @@ public interface BaseService<T, K> {
 	 * @return 影响的记录条数
 	 * @author 李彤 2013-8-27 下午9:43:24
 	 */
-	int insertSelective(T record);
+	//int insertSelective(T record);
 
 	/**
 	 * 根据主键查找记录
@@ -43,7 +43,7 @@ public interface BaseService<T, K> {
 	 * @return 影响的记录条数
 	 * @author 李彤 2013-8-27 下午9:44:34
 	 */
-	T selectByPrimaryKey(Integer id);
+	//T selectByPrimaryKey(Integer id);
 
 	/**
 	 * 根据主键更新不为null的字段
@@ -51,7 +51,7 @@ public interface BaseService<T, K> {
 	 * @return 影响的记录条数
 	 * @author 李彤 2013-8-27 下午9:45:35
 	 */
-	int updateByPrimaryKeySelective(T record);
+	//int updateByPrimaryKeySelective(T record);
 
 	/**
 	 * 根据主键更新字段
@@ -59,7 +59,7 @@ public interface BaseService<T, K> {
 	 * @return 影响的记录条数
 	 * @author 李彤 2013-8-27 下午9:46:05
 	 */
-	int updateByPrimaryKey(T record);
+	//int updateByPrimaryKey(T record);
 	
 	/**
 	 * 获取总记录数

@@ -80,9 +80,9 @@ public class WordPCServiceImpl implements WordPCService {
 	public int getTotalRecords(HttpServletRequest request, Boolean search) {
 		WordPCExample wordPCExample = new WordPCExample();
 		//设置默认选择哪张表
-		//wordPCExample.setDate(Utils.lastDate(new Date()));
+		wordPCExample.setDate(Utils.lastDate(new Date()));
 		//测试 TODO
-		wordPCExample.setDate("20130808");
+		//wordPCExample.setDate("20130808");
 		//添加查询条件
 		if(search) addCriteria(request, wordPCExample);
 		return wordPCMapper.countByExample(wordPCExample);
@@ -96,8 +96,9 @@ public class WordPCServiceImpl implements WordPCService {
 		wordPCExample.setStart(start);
 		wordPCExample.setLimit(limit);
 		//设置默认选择哪张表
+		wordPCExample.setDate(Utils.lastDate(new Date()));
 		//测试 TODO
-		wordPCExample.setDate("20130808");
+		//wordPCExample.setDate("20130808");
 		
 		//添加查询条件
 		if(search) {
@@ -150,7 +151,6 @@ public class WordPCServiceImpl implements WordPCService {
 			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
 			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
 			if(!StringUtils.isEmpty(startTime)&&!StringUtils.isEmpty(endTime)) criteria.andHourBetween(Utils.getHour(startTime), Utils.getHour(endTime));
-			
 			String wordsKey = request.getSession().getId()+"_PCWORD";
 			if(importWords.containsKey(wordsKey)){//如果有上传的词表
 				List<String> wordsList = importWords.get(wordsKey);
@@ -181,41 +181,6 @@ public class WordPCServiceImpl implements WordPCService {
 		return Arrays.asList(new Integer[]{0,1,2,3,4,5});
 	}
 
-	@Override
-	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int insert(WordPC record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int insertSelective(WordPC record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public WordPC selectByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int updateByPrimaryKeySelective(WordPC record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateByPrimaryKey(WordPC record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public String validateExcel(InputStream is, String sessionId) {
