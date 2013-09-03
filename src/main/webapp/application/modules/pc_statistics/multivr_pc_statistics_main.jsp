@@ -75,8 +75,6 @@
 	<%@ include file="../common/failure_dialog.jsp" %>
 </body>
 <jsp:include page="../common/script.jsp" flush="true"/>
-<script type="text/javascript" src="<%=templatePath%>js/select2/select2.js"></script>
-<script type="text/javascript" src="<%=templatePath%>js/select2/select2_locale_zh-CN.js"></script>
 <script type="text/javascript" src="<%=templatePath%>js/pc_statistics/multivr_pc_statistics_main.js"></script>
 <script type="text/javascript" src="<%=templatePath%>js/common/export.js"></script>
 </html>

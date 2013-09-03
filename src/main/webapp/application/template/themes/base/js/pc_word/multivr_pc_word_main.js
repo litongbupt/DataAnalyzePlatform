@@ -7,7 +7,7 @@ $(function(){
 	//主页面表格
 	$("#modelList").jqGrid({
 	    url:golbal_context+"/pc_word/list.do",
-	    datatype: "json",
+	    datatype: "local",
 	    mtype: "GET",
 	    width:"100%",
 	    height:"auto",
@@ -249,6 +249,7 @@ function query() {
 	//将合并后的数据设置到表格属性中，记得加search:true 
 	$("#modelList").setGridParam({
 		search : true,
+		datatype: "json",
 		postData : postData
 	});
 	$("#modelList").trigger("reloadGrid", [ {
