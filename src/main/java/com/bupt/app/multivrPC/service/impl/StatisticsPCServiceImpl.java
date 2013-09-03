@@ -99,6 +99,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 	 */
 	private void addCriteria(HttpServletRequest request,StatisticsPCExample statisticsPCExample) {
 			String[] type = request.getParameterValues("type[]");
+			if(type!=null&&type.length>0) type = request.getParameterValues("type");
 			String position = request.getParameter("position");
 			String abtest = request.getParameter("abtest");
 			String startTime = request.getParameter("startTime");
