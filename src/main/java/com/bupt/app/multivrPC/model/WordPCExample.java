@@ -654,7 +654,7 @@ public class WordPCExample {
         }
 
         public Criteria andKeywordLike(String value) {
-            addCriterion("keyword like", value, "keyword");
+            addCriterion("keyword like", "%"+value+"%", "keyword");
             return (Criteria) this;
         }
 

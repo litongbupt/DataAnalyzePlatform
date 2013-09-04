@@ -116,9 +116,7 @@ function initTime(){
 	//得到最终结果  
 	uom = uom.getFullYear() + "-" + LSTR_MM + "-" + LSTR_DD; 
 	$("#query_startTime").val(uom+ " 00:00:00");
-	//$("#query_startTime").val("2013-08-08 00:00:00");
 	$("#query_endTime").val(uom+ " 23:00:00");
-	//$("#query_endTime").val("2013-08-08 23:00:00");
 }
 
 //保存当前选择的行Id
@@ -155,7 +153,7 @@ function query() {
 		endTime : $("#query_endTime").val().trim(),
 		type: $("#query_type").val(),
 		position : $("#query_position").val().trim(),
-		abtest : $("#query_abtest").val().trim(),
+		abtest : $("#query_abtest").val().trim()
 	};
 	//合并数据 	
 	postData = $.extend($("#modelList").getGridParam("postData"), postData);

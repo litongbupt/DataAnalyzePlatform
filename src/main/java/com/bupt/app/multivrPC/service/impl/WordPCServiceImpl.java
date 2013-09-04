@@ -144,7 +144,7 @@ public class WordPCServiceImpl implements WordPCService {
 			}
 			wordPCExample.setDate(Utils.getDate(startTime));
 			Criteria criteria = wordPCExample.createCriteria();
-			if(type!=null&&type.length>0) criteria.andTypeIn(Arrays.asList(type));
+			if(type!=null&&type.length>0&&!type[0].equalsIgnoreCase("null")) criteria.andTypeIn(Arrays.asList(type));
 			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
 			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
 			if(!StringUtils.isEmpty(startTime)&&!StringUtils.isEmpty(endTime)) criteria.andHourBetween(Utils.getHour(startTime), Utils.getHour(endTime));
@@ -157,7 +157,8 @@ public class WordPCServiceImpl implements WordPCService {
 					log.debug("wordsList:"+wordsList);
 				}
 			}else{
-				if(!StringUtils.isEmpty(keyword)) criteria.andKeywordLike(keyword);
+				if(!StringUtils.isEmpty(keyword)) 
+					criteria.andKeywordLike(keyword);
 			}
 	}
 	
@@ -187,11 +188,11 @@ public class WordPCServiceImpl implements WordPCService {
 		while(true){
 			try {
 				word = in.readLine();
+				if(word==null){
+					break;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-			if(word==null){
-				break;
 			}
 			wordList.add(word);
 		}

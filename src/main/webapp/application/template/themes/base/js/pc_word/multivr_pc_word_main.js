@@ -142,9 +142,7 @@ function initTime(){
 	//得到最终结果  
 	uom = uom.getFullYear() + "-" + LSTR_MM + "-" + LSTR_DD; 
 	$("#query_startTime").val(uom+ " 00:00:00");
-	//$("#query_startTime").val("2013-08-08 00:00:00");
 	$("#query_endTime").val(uom+ " 23:00:00");
-	//$("#query_endTime").val("2013-08-08 23:00:00");
 }
 
 //保存当前选择的行Id
