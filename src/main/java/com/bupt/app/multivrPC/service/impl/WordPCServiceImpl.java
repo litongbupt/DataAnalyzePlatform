@@ -49,7 +49,7 @@ public class WordPCServiceImpl implements WordPCService {
 	public WordPCDTO selectByPrimaryKey(String title) {
 		WordPCExample wordPCExample = new WordPCExample();
 		wordPCExample.createCriteria().andTitleEqualTo(title);
-		List<WordPC> resultList = wordPCMapper.selectByExample(wordPCExample);
+		List<WordPC> resultList = wordPCMapper.selectDayByExample(wordPCExample);
 		
 		if(debug){
 			log.debug("service.selectByPrimaryKey().resultList:"+resultList);
@@ -83,7 +83,7 @@ public class WordPCServiceImpl implements WordPCService {
 		wordPCExample.setDate(Utils.lastDate(new Date()));
 		//添加查询条件
 		if(search) addCriteria(request, wordPCExample);
-		return wordPCMapper.countByExample(wordPCExample);
+		return wordPCMapper.countDayByExample(wordPCExample);
 	}
 
 	@Override
@@ -134,7 +134,7 @@ public class WordPCServiceImpl implements WordPCService {
 	private void addCriteria(HttpServletRequest request,WordPCExample wordPCExample) {
 			String keyword =  request.getParameter("keyword");
 			String[] type = request.getParameterValues("type[]");
-			if(type!=null&&type.length>0) type = request.getParameterValues("type");
+			if(type==null||type.length==0) type = request.getParameterValues("type");
 			String position = request.getParameter("position");
 			String abtest = request.getParameter("abtest");
 			String startTime = request.getParameter("startTime");
