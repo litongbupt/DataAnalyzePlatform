@@ -14,7 +14,6 @@
 	.select_opt p#toright{background-position:2px 0}
 	.select_opt p#toleft{background-position:2px -16px}
 </style>
-<link rel="stylesheet" type="text/css" media="screen" href="<%=templatePath %>css/select2/select2.css"/>
 </head>
 
 <body id="activity_pane">
@@ -28,17 +27,19 @@
     <div class="content" id="main-content">
     	<div class="sear" id="query_form"> 
     		<form id="exportForm" method="post" >
-        	<label>从：<input type="text" size="15" id="query_startTime" name="startTime"/></label>
-            <label>到：<input type="text" size="15" id="query_endTime" name="endTime"/></label>
-            <label>类型 :
-                <select id="query_type" name="type" size="1" multiple="multiple">
+    		<label>类型 :
+                <select id="query_type" name="type" size="15" multiple="multiple" style="width: 160px">
             		<option></option>
          	    </select>
          	</label>
+        	<label>从：<input type="text" size="15" id="query_startTime" name="startTime"/></label>
+            <label>到：<input type="text" size="15" id="query_endTime" name="endTime"/></label>
             <label>位置 :
                 <select id="query_position" name="position" size="1">
              	  <option value=''>--请选择--</option>
-         	    </select></label>
+         	    </select>
+         	</label>
+
             <label>abtest:	
             	<select id="query_abtest" name="abtest" size="1">
              	  <option value=''>--请选择--</option>
@@ -66,7 +67,7 @@
     	<div class="left"></div>
         <div class="right"><div class="center"></div></div>
     </div>
-
+</div>
 <!-- 弹窗定义 -->
 	<div id="detailDialog">
 	</div>
@@ -78,8 +79,9 @@
 	<%@ include file="../common/alert_dialog.jsp" %>
 	<%@ include file="../common/confirm_dialog.jsp" %>
 	<%@ include file="../common/failure_dialog.jsp" %>
-</body>
-<jsp:include page="../common/script.jsp" flush="true"/>
+	<jsp:include page="../common/script.jsp" flush="true"/>
 <script type="text/javascript" src="<%=templatePath%>js/pc_word/multivr_pc_word_main.js"></script>
 <script type="text/javascript" src="<%=templatePath%>js/common/export.js"></script>
+</body>
+
 </html>

@@ -101,7 +101,7 @@ function exportXls(){
 	var inputs = $("input[name='exportParams']:checked");
 	if(inputs.length<1){
 		$("#failure_info").html("[导出项]请选择至少一个导出项");
-		$( "#failureDialog" ).dialog( "open" );
+		$("#failureDialog").dialog( "open" );
 		setTimeout("$( '#failureDialog' ).dialog( 'close' );", 3000);
 		return;
 	}else{
@@ -116,7 +116,7 @@ function exportXls(){
 	var maxRecords = $("#maxExportRows").val();
 	if(maxRecords.search("^[1-9]+[0-9]*$")!=0){
 		$("#failure_info").html("[最大导出条数]请输入一个正整数");
-		$( "#failureDialog" ).dialog( "open" );
+		$("#failureDialog").dialog( "open" );
 		setTimeout("$( '#failureDialog' ).dialog( 'close' );", 3000);
 		return;
 	}else{

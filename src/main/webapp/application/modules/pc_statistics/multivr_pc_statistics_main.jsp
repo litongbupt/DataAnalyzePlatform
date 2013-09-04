@@ -14,7 +14,6 @@
 	.select_opt p#toright{background-position:2px 0}
 	.select_opt p#toleft{background-position:2px -16px}
 </style>
-<link rel="stylesheet" type="text/css" media="screen" href="<%=templatePath %>css/select2/select2.css"/>
 </head>
 
 <body id="activity_pane">
@@ -31,7 +30,7 @@
         	<label>从：<input type="text" size="15" id="query_startTime" name="startTime"/></label>
             <label>到：<input type="text" size="15" id="query_endTime" name="endTime"/></label>
             <label>类型 :
-                <select id="query_type" name="type" size="1" multiple="multiple">
+                <select id="query_type" name="type" size="1" multiple="multiple" style="width: 80px">
             		<option></option>
          	    </select>
          	</label>
@@ -73,8 +72,9 @@
 	<%@ include file="../common/alert_dialog.jsp" %>
 	<%@ include file="../common/confirm_dialog.jsp" %>
 	<%@ include file="../common/failure_dialog.jsp" %>
-</body>
 <jsp:include page="../common/script.jsp" flush="true"/>
 <script type="text/javascript" src="<%=templatePath%>js/pc_statistics/multivr_pc_statistics_main.js"></script>
 <script type="text/javascript" src="<%=templatePath%>js/common/export.js"></script>
+</body>
+
 </html>

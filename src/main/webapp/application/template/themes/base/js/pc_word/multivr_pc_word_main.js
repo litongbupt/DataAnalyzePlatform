@@ -85,6 +85,9 @@ $(function(){
 		$("#query_type").select2({
 			placeholder: "-请选择-"
 		});
+		$("#query_clickid").select2({
+			placeholder: "-请选择-"
+		});
   	});
   	
   	

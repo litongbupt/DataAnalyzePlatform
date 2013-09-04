@@ -46,8 +46,6 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 		if(debug){
 			log.debug("date:"+Utils.lastDate(new Date()));
 		}
-		//测试 TODO
-		//statisticsPCExample.setDate("20130808");
 		//添加查询条件
 		if(search) addCriteria(request, statisticsPCExample);
 		return statisticsPCMapper.countByExample(statisticsPCExample);
@@ -62,8 +60,6 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 		statisticsPCExample.setLimit(limit);
 		//设置默认选择哪张表
 		statisticsPCExample.setDate(Utils.lastDate(new Date()));
-		//测试 TODO
-		//statisticsPCExample.setDate("20130808");
 		
 		//添加查询条件
 		if(search) {

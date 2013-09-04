@@ -11,5 +11,6 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<%=templatePath %>css/jqgrid/ui.jqgrid.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<%=templatePath %>css/jquery/jquery-ui-timepicker-addon.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<%=templatePath %>css/loading/showLoading.css"/>
+<link rel="stylesheet" type="text/css" media="screen" href="<%=templatePath %>css/select2/select2.css"/>
 
 	
