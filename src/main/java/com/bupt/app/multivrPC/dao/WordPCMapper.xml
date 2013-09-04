@@ -129,7 +129,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by position, clickid, type, abtest, keyword
+    group by position, clickid, type, keyword
     <if test="orderByClause != null" >
       order by ${orderByClause}, pv desc
     </if>
@@ -163,7 +163,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by position, clickid,type,abtest, keyword) as t1
+    group by position, clickid,type, keyword) as t1
   </select>
 
 </mapper>

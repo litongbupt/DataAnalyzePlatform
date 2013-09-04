@@ -9,7 +9,6 @@
 		<parameter name="abtest" db-name="abtest" show-name="abtest" show="true" type="string" width="5000" selected="true"></parameter>
 		<parameter name="position" db-name="position" show-name="位置" show="true" type="string" width="5000" selected="true" modify="true"></parameter>
 		<parameter name="clickid" db-name="clickid" show-name="clickid" show="true" type="string"  width="4000" selected="true"></parameter>
-		<parameter name="hour" db-name="hour" show-name="时间" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
 		<parameter name="pv" db-name="pv" show-name="展示量" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
 		<parameter name="eclpv" db-name="eclpv" show-name="最终点击" show="true" type="string"  width="5000" selected="true"></parameter>
 		<parameter name="click" db-name="click" show-name="点击量" show="true" type="string" width="4000" selected="true"></parameter>
@@ -22,10 +21,8 @@
 		<parameter name="abtest" db-name="abtest" show-name="abtest" show="true" type="string" width="5000" selected="true"></parameter>
 		<parameter name="position" db-name="position" show-name="位置" show="true" type="string" width="5000" selected="true" modify="true"></parameter>
 		<parameter name="clickid" db-name="clickid" show-name="clickid" show="true" type="string"  width="4000" selected="true"></parameter>
-		<parameter name="hour" db-name="hour" show-name="时间" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
 		<parameter name="pv" db-name="pv" show-name="展示量" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
 		<parameter name="eclpv" db-name="eclpv" show-name="最终点击" show="true" type="string"  width="5000" selected="true"></parameter>
 		<parameter name="click" db-name="click" show-name="点击量" show="true" type="string" width="4000" selected="true"></parameter>
 	</resou-info>
-	
 </resou-infos>

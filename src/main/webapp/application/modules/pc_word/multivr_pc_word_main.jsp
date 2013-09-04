@@ -27,19 +27,18 @@
     <div class="content" id="main-content">
     	<div class="sear" id="query_form"> 
     		<form id="exportForm" method="post" >
+        	<label>从：<input type="text" size="15" id="query_startTime" name="startTime"/></label>
+            <label>到：<input type="text" size="15" id="query_endTime" name="endTime"/></label>
     		<label>类型 :
                 <select id="query_type" name="type" size="15" multiple="multiple" style="width: 160px">
             		<option></option>
          	    </select>
          	</label>
-        	<label>从：<input type="text" size="15" id="query_startTime" name="startTime"/></label>
-            <label>到：<input type="text" size="15" id="query_endTime" name="endTime"/></label>
             <label>位置 :
                 <select id="query_position" name="position" size="1">
              	  <option value=''>--请选择--</option>
          	    </select>
          	</label>
-
             <label>abtest:	
             	<select id="query_abtest" name="abtest" size="1">
              	  <option value=''>--请选择--</option>
@@ -54,6 +53,7 @@
 		       	<input id="export_sortorder" name="sortOrder" type="hidden" />
 		       	<input id="export_search" name="search" type="hidden" />
             <label><input type="button" value="查询" class="butt" onclick="query()"/></label>
+            
             </form>
         </div>
         <div class="toolBar">&nbsp;
