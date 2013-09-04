@@ -28,7 +28,7 @@ public class WordPCDTO {
 	private String keyword;
 
 	// 时间
-	private Integer hour;
+	//private Integer hour;
 
 	// VR类型
 	private String type;
@@ -67,9 +67,9 @@ public class WordPCDTO {
 		return keyword;
 	}
 
-	public Integer getHour() {
-		return hour;
-	}
+//	public Integer getHour() {
+//		return hour;
+//	}
 
 	public String getType() {
 		return type;
@@ -107,9 +107,9 @@ public class WordPCDTO {
 		this.keyword = keyword;
 	}
 
-	public void setHour(Integer hour) {
-		this.hour = hour;
-	}
+//	public void setHour(Integer hour) {
+//		this.hour = hour;
+//	}
 
 	public void setType(String type) {
 		this.type = type;

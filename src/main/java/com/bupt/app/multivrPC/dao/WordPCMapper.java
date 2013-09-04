@@ -10,6 +10,9 @@ public interface WordPCMapper {
     int countByExample(WordPCExample example);
 
     List<WordPC> selectByExample(WordPCExample example);
+    
+    int countDayByExample(WordPCExample example);
 
+    List<WordPC> selectDayByExample(WordPCExample example);
 
 }

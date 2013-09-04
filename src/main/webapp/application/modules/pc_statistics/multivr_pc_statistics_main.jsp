@@ -30,7 +30,7 @@
         	<label>从：<input type="text" size="15" id="query_startTime" name="startTime"/></label>
             <label>到：<input type="text" size="15" id="query_endTime" name="endTime"/></label>
             <label>类型 :
-                <select id="query_type" name="type" size="1" multiple="multiple" style="width: 80px">
+                <select id="query_type" name="type" size="1" multiple="multiple" style="width: 180px">
             		<option></option>
          	    </select>
          	</label>

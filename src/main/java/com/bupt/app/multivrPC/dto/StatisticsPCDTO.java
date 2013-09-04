@@ -16,8 +16,6 @@ public class StatisticsPCDTO {
 		// clickid
 		private String clickid;
 
-		// 时间
-		private Integer hour;
 
 		// VR类型
 		private String type;
@@ -48,9 +46,6 @@ public class StatisticsPCDTO {
 			return clickid;
 		}
 
-		public Integer getHour() {
-			return hour;
-		}
 
 		public String getType() {
 			return type;
@@ -84,9 +79,6 @@ public class StatisticsPCDTO {
 			this.clickid = clickid;
 		}
 
-		public void setHour(Integer hour) {
-			this.hour = hour;
-		}
 
 		public void setType(String type) {
 			this.type = type;
