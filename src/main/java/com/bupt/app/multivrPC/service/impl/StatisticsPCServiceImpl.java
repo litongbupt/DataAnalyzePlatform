@@ -200,7 +200,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startHour:"+startHour+"endHour:"+endHour+"clickid: "+clickid);
 			}
 			Criteria criteria = statisticsPCExample.createCriteria();
-			if(type!=null&&type.length>0) criteria.andTypeIn(Arrays.asList(type));
+			if(type!=null&&type.length>0&&!type[0].equalsIgnoreCase("null")) criteria.andTypeIn(Arrays.asList(type));
 			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
 			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
 			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);
