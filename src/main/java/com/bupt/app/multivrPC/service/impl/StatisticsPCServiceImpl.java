@@ -46,8 +46,13 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 		if(debug){
 			log.debug("date:"+Utils.lastDate(new Date()));
 		}
+		
 		//添加查询条件
 		if(search) addCriteria(request, statisticsPCExample);
+		
+		
+		
+		
 		return statisticsPCMapper.countByExample(statisticsPCExample);
 	}
 
@@ -80,6 +85,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			statisticsPCDTO.setVrId(statisticsPC.getType());
 			if(vrMap.containsKey(statisticsPC.getType())){
 				statisticsPCDTO.setType(vrMap.get(statisticsPC.getType()));
+				statisticsPCDTO.setConsumption(statisticsPCDTO.getEclpv()*100/statisticsPCDTO.getPv()+"%");
 			}
 			wordDTOList.add(statisticsPCDTO);
 		}
@@ -100,8 +106,9 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			String abtest = request.getParameter("abtest");
 			String startTime = request.getParameter("startTime");
 			String endTime = request.getParameter("endTime");
+			String clickid = request.getParameter("clickid");
 			if(debug){
-				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startTime:"+startTime+"endTime:"+endTime+"date:"+Utils.getDate(startTime));
+				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startTime:"+startTime+"endTime:"+endTime+"date:"+Utils.getDate(startTime)+"clickid: "+clickid);
 			}
 			statisticsPCExample.setDate(Utils.getDate(startTime));
 			Criteria criteria = statisticsPCExample.createCriteria();
@@ -109,6 +116,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
 			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
 			if(!StringUtils.isEmpty(startTime)&&!StringUtils.isEmpty(endTime)) criteria.andHourBetween(Utils.getHour(startTime), Utils.getHour(endTime));
+			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);
 	}
 	
 	

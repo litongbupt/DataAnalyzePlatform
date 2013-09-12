@@ -41,12 +41,12 @@
          	</label>
             <label>abtest:	
             	<select id="query_abtest" name="abtest" size="1">
-             	  <option value=''>--请选择--</option>
          	    </select>
             </label>
             <label>查询词:<input type="text" size="8" id="query_keyword" name="keyword"/>
              </label>
-             
+            <label>clickid:<input type="text" size="8" id="query_clickid" name="clickid"/>
+            </label>
                 <input id="export_selectCols" name="selectCols" type="hidden" />
 		       	<input id="export_maxRecords" name="maxRecords" type="hidden" />
 		       	<input id="export_sortname" name="sortName" type="hidden" />

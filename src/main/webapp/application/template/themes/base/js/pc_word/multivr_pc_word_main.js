@@ -25,7 +25,8 @@ $(function(){
 	        //{name:"hour",index:"hour",label : "时间",width:30,sortable:true,align:"center"},
 	        {name:"pv",index:"pv",label : "展现量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
 	        {name:"click",index:"click",label : "点击量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
-	        {name:"eclpv",index:"eclpv",label : "最终点击",width:30,sortable:true,align:"center",firstsortorder:"desc" }
+	        {name:"eclpv",index:"eclpv",label : "最终点击",width:30,sortable:true,align:"center",firstsortorder:"desc" },
+	        {name:"consumption",index:"consumption",label : "消费率",width:30,sortable:false,align:"center",firstsortorder:"desc" }
 	        //{name:"setup",label : "配&nbsp;置",width:30,sortable:false,align:"center" }
 		 ],
 	    pager: "#listPager",	    
@@ -243,7 +244,8 @@ function query() {
 		type: $("#query_type").val(),
 		position : $("#query_position").val().trim(),
 		abtest : $("#query_abtest").val().trim(),
-		keyword : $("#query_keyword").val().trim()
+		keyword : $("#query_keyword").val().trim(),
+		clickid : $("#query_clickid").val().trim()
 	};
 	//合并数据 	
 	postData = $.extend($("#modelList").getGridParam("postData"), postData);

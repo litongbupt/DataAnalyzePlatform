@@ -38,6 +38,9 @@ public class WordPCDTO {
 
 	// VRID
 	private String vrId;
+	
+	//消费率
+	private String consumption;
 
 	public String getTitle() {
 		return title;
@@ -126,5 +129,14 @@ public class WordPCDTO {
 	public void setVrId(String vrId) {
 		this.vrId = vrId;
 	}
+
+	public String getConsumption() {
+		return consumption;
+	}
+
+	public void setConsumption(String consumption) {
+		this.consumption = consumption;
+	}
+	
 
 }

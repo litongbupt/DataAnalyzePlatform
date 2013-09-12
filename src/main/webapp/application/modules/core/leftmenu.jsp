@@ -22,11 +22,12 @@
                 <a  href="javascript:void(0)"  onClick="Menu('<%=modulesPath %>core/indexContent.jsp');">词表查询</a>
                 <a  href="javascript:void(0)"  onClick="Menu('<%=modulesPath %>core/indexContent.jsp');">统计信息</a>
             </dd>
+            <!-- 
             <dt><div class="icon6" onClick="Menu('<%=modulesPath %>core/indexContent.jsp');">CTR系统</div></dt>
+             -->
         </dl>
     </div>
 </div>
-</body>
 <jsp:include page="../common/script.jsp" flush="true"/>
 <script type="text/javascript">
 function Menu(url)
@@ -34,4 +35,5 @@ function Menu(url)
  $('#rightFrame',window.parent.document).attr('src',url);
 }
 </script>
+</body>
 </html>

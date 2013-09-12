@@ -30,7 +30,7 @@
         	<label>从：<input type="text" size="15" id="query_startTime" name="startTime"/></label>
             <label>到：<input type="text" size="15" id="query_endTime" name="endTime"/></label>
             <label>类型 :
-                <select id="query_type" name="type" size="1" multiple="multiple" style="width: 180px">
+                <select id="query_type" name="type" size="1" multiple="multiple" style="width: 160px">
             		<option></option>
          	    </select>
          	</label>
@@ -40,9 +40,9 @@
          	    </select></label>
             <label>abtest:	
             	<select id="query_abtest" name="abtest" size="1">
-             	  <option value=''>--请选择--</option>
          	    </select>
             </label>
+            <label>clickid:<input type="text" size="8" id="query_clickid" name="clickid"/></label>
                 <input id="export_selectCols" name="selectCols" type="hidden" />
 		       	<input id="export_maxRecords" name="maxRecords" type="hidden" />
 		       	<input id="export_sortname" name="sortName" type="hidden" />

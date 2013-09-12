@@ -27,10 +27,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript">
-function Menu(url)
-{//重写父窗口中右侧子窗口iframe的src，实现左侧子窗口控制父窗口并显示内容在右侧子窗口
- $('#rightFrame',window.parent.document).attr('src','/DRTS/'+url);
-}
-</script>
 </html>

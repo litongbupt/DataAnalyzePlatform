@@ -25,6 +25,8 @@ public class StatisticsPCDTO {
 
 		// VRID
 		private String vrId;
+		
+		private String consumption;
 
 		public Integer getAbtest() {
 			return abtest;
@@ -90,6 +92,14 @@ public class StatisticsPCDTO {
 
 		public void setVrId(String vrId) {
 			this.vrId = vrId;
+		}
+
+		public String getConsumption() {
+			return consumption;
+		}
+
+		public void setConsumption(String consumption) {
+			this.consumption = consumption;
 		}
 		
 		

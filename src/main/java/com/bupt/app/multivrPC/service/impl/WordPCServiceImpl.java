@@ -118,6 +118,7 @@ public class WordPCServiceImpl implements WordPCService {
 			wordPCDTO.setVrId(wordPC.getType());
 			if(vrMap.containsKey(wordPC.getType())){
 				wordPCDTO.setType(vrMap.get(wordPC.getType()));
+				wordPCDTO.setConsumption(wordPCDTO.getEclpv()*100/wordPCDTO.getPv()+"%");
 			}
 			wordDTOList.add(wordPCDTO);
 		}
@@ -139,8 +140,9 @@ public class WordPCServiceImpl implements WordPCService {
 			String abtest = request.getParameter("abtest");
 			String startTime = request.getParameter("startTime");
 			String endTime = request.getParameter("endTime");
+			String clickid = request.getParameter("clickid");
 			if(debug){
-				log.debug("keyword:"+keyword+"type:"+type+"position:"+position+"abtest:"+abtest+"startTime:"+startTime+"endTime:"+endTime);
+				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startTime:"+startTime+"endTime:"+endTime+"date:"+Utils.getDate(startTime)+"clickid: "+clickid);
 			}
 			wordPCExample.setDate(Utils.getDate(startTime));
 			Criteria criteria = wordPCExample.createCriteria();
@@ -148,6 +150,7 @@ public class WordPCServiceImpl implements WordPCService {
 			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
 			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
 			if(!StringUtils.isEmpty(startTime)&&!StringUtils.isEmpty(endTime)) criteria.andHourBetween(Utils.getHour(startTime), Utils.getHour(endTime));
+			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);
 			String wordsKey = request.getSession().getId()+"_PCWORD";
 			if(importWords.containsKey(wordsKey)){//如果有上传的词表
 				List<String> wordsList = importWords.get(wordsKey);
