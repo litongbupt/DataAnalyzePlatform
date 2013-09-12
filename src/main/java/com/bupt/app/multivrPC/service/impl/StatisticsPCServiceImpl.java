@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -36,47 +39,134 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 	@Resource(name="statisticsPCMapper")
 	private StatisticsPCMapper statisticsPCMapper;
 	
-
+	private Map<Integer,Integer> totalRecordMap = new TreeMap<Integer,Integer>();
 
 	@Override
 	public int getTotalRecords(HttpServletRequest request, Boolean search) {
 		StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
-		//设置默认选择哪张表
-		statisticsPCExample.setDate(Utils.lastDate(new Date()));
-		if(debug){
-			log.debug("date:"+Utils.lastDate(new Date()));
+
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		
+		int startDay;
+		int endDay;
+		try {
+			startDay = Integer.parseInt(Utils.getDate(startTime));
+			endDay = Integer.parseInt(Utils.getDate(endTime));
+		} catch (Exception e) {
+			// 设置默认选择哪张表
+			startDay = endDay = Integer.parseInt(Utils.lastDate(new Date()));
 		}
-		
-		//添加查询条件
-		if(search) addCriteria(request, statisticsPCExample);
-		
-		
-		
-		
-		return statisticsPCMapper.countByExample(statisticsPCExample);
+
+		Integer startHour = null;
+		Integer endHour = null;
+		if(startDay==endDay){
+			statisticsPCExample.setDate(startDay + "");
+			startHour = Utils.getHour(startTime);
+			endHour = Utils.getHour(endTime);
+			if(startHour==0&&endHour==23){
+				startHour=null;
+				endHour=null;
+			}
+			if (search) {
+				addCriteria(request, statisticsPCExample, startHour, endHour);
+			}
+			totalRecordMap.put(startDay, statisticsPCMapper.countByExample(statisticsPCExample));
+		}else if (startDay < endDay) {
+			if (search) {
+//				if (currentDay == startDay) {startHour = Utils.getHour(startTime);if(startHour!=0) endHour=23;} 
+//				if (currentDay == endDay) {endHour = Utils.getHour(endTime);if(endHour!=23) startHour=0;}
+				addCriteria(request, statisticsPCExample, startHour, endHour);
+			}
+			for (int currentDay = startDay; currentDay <= endDay; ++currentDay) {
+				statisticsPCExample.setDate(currentDay + "");
+				// 添加查询条件
+				totalRecordMap.put(currentDay, statisticsPCMapper.countByExample(statisticsPCExample));
+			}
+		}
+		int totalRecord = 0;
+		for (Integer record : totalRecordMap.values()) {
+			totalRecord+=record;
+		}
+		return totalRecord;
 	}
 
 	@Override
 	public List<StatisticsPCDTO> listResults(int start, int limit, String sortName,
 			String sortOrder, HttpServletRequest request,Boolean search) {
-		StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
-		statisticsPCExample.setOrderByClause( sortName +" "+ sortOrder);
-		statisticsPCExample.setStart(start);
-		statisticsPCExample.setLimit(limit);
-		//设置默认选择哪张表
-		statisticsPCExample.setDate(Utils.lastDate(new Date()));
-		
-		//添加查询条件
-		if(search) {
-			addCriteria(request,  statisticsPCExample);
-		}
 
-		//获取结果列表
-		List<StatisticsPC> statisticsPCs = statisticsPCMapper.selectByExample(statisticsPCExample);
-		//获取VR类型 为了展示方便这里先不转换VR类型了
-		Map<String, String> vrMap = MultivrPCVRTypeUtils.getVRType();
-		
+		//DTO
 		List<StatisticsPCDTO> wordDTOList = new ArrayList<StatisticsPCDTO>();
+		
+		//获取起始日期
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		int startDay;
+		int endDay;
+		try {
+			startDay = Integer.parseInt(Utils.getDate(startTime));
+			endDay = Integer.parseInt(Utils.getDate(endTime));
+		} catch (Exception e) {
+			// 设置默认选择哪张表
+			startDay = endDay = Integer.parseInt(Utils.lastDate(new Date()));
+		}
+		
+		Integer startHour = null;
+		Integer endHour = null;
+		if(startDay==endDay){//如果是同一天，判断小时
+			StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
+			statisticsPCExample.setOrderByClause( sortName +" "+ sortOrder);
+			statisticsPCExample.setDate(startDay + "");
+			startHour = Utils.getHour(startTime);
+			endHour = Utils.getHour(endTime);
+			if(startHour==0&&endHour==23){
+				startHour=null;
+				endHour=null;
+			}
+			if(search) addCriteria(request, statisticsPCExample, startHour, endHour);
+			
+			statisticsPCExample.setDate(startDay+"");
+			statisticsPCExample.setStart(start);
+			statisticsPCExample.setLimit(limit);
+			wordDTOList.addAll(selectByPCExample(statisticsPCExample));
+		}else if (startDay < endDay) {//不考虑小时
+			StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
+			statisticsPCExample.setOrderByClause( sortName +" "+ sortOrder);
+			if(search) addCriteria(request, statisticsPCExample, startHour, endHour);
+			int currentTotalRecord = 0;
+			for (int currentDay = startDay; currentDay <= endDay; currentDay++) {
+				Integer currentRecordsCount = totalRecordMap.get(currentDay);
+				if (start + limit <= currentTotalRecord + currentRecordsCount) {
+					statisticsPCExample.setDate(currentDay + "");
+					statisticsPCExample.setStart(start - currentTotalRecord);
+					statisticsPCExample.setLimit(limit);
+					wordDTOList.addAll(selectByPCExample(statisticsPCExample));
+					break;
+				} else if (start + limit > currentTotalRecord + currentRecordsCount&&currentTotalRecord + currentRecordsCount - start>0) {
+					statisticsPCExample.setDate(currentDay + "");
+					statisticsPCExample.setStart(start - currentTotalRecord);
+					statisticsPCExample.setLimit(currentTotalRecord + currentRecordsCount - start);
+					wordDTOList.addAll(selectByPCExample(statisticsPCExample));
+					limit = limit - (currentTotalRecord + currentRecordsCount - start);
+					start=currentTotalRecord+currentRecordsCount;
+				}
+				currentTotalRecord += currentRecordsCount;
+			}
+				
+		}
+		return wordDTOList;
+	}
+
+	/**
+	 * @param statisticsPCExample
+	 * @return
+	 * @author 李彤 2013-9-12 下午2:15:21
+	 */
+	private List<StatisticsPCDTO> selectByPCExample(
+			StatisticsPCExample statisticsPCExample) {
+		Map<String, String> vrMap = MultivrPCVRTypeUtils.getVRType();
+		List<StatisticsPCDTO> wordDTOList = new ArrayList<StatisticsPCDTO>();
+		List<StatisticsPC> statisticsPCs = statisticsPCMapper.selectByExample(statisticsPCExample);
 		StatisticsPCDTO statisticsPCDTO = null;
 		for (StatisticsPC statisticsPC : statisticsPCs) {
 			statisticsPCDTO = new StatisticsPCDTO();
@@ -85,8 +175,9 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			statisticsPCDTO.setVrId(statisticsPC.getType());
 			if(vrMap.containsKey(statisticsPC.getType())){
 				statisticsPCDTO.setType(vrMap.get(statisticsPC.getType()));
-				statisticsPCDTO.setConsumption(statisticsPCDTO.getEclpv()*100/statisticsPCDTO.getPv()+"%");
 			}
+			statisticsPCDTO.setConsumption(statisticsPCDTO.getEclpv()*100/statisticsPCDTO.getPv()+"%");
+			statisticsPCDTO.setDate(statisticsPCExample.getDate());
 			wordDTOList.add(statisticsPCDTO);
 		}
 		return wordDTOList;
@@ -99,24 +190,21 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 	 * @param statisticsPCExample
 	 * @author 李彤 2013-8-26 下午8:18:21
 	 */
-	private void addCriteria(HttpServletRequest request,StatisticsPCExample statisticsPCExample) {
+	private void addCriteria(HttpServletRequest request,StatisticsPCExample statisticsPCExample,Integer startHour,Integer endHour) {
 			String[] type = request.getParameterValues("type[]");
 			if(type==null||type.length==0) type = request.getParameterValues("type");
 			String position = request.getParameter("position");
 			String abtest = request.getParameter("abtest");
-			String startTime = request.getParameter("startTime");
-			String endTime = request.getParameter("endTime");
 			String clickid = request.getParameter("clickid");
 			if(debug){
-				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startTime:"+startTime+"endTime:"+endTime+"date:"+Utils.getDate(startTime)+"clickid: "+clickid);
+				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startHour:"+startHour+"endHour:"+endHour+"clickid: "+clickid);
 			}
-			statisticsPCExample.setDate(Utils.getDate(startTime));
 			Criteria criteria = statisticsPCExample.createCriteria();
 			if(type!=null&&type.length>0) criteria.andTypeIn(Arrays.asList(type));
 			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
 			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
-			if(!StringUtils.isEmpty(startTime)&&!StringUtils.isEmpty(endTime)) criteria.andHourBetween(Utils.getHour(startTime), Utils.getHour(endTime));
 			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);
+			if(startHour!=null&&endHour!=null) criteria.andHourBetween(startHour, endHour);
 	}
 	
 	

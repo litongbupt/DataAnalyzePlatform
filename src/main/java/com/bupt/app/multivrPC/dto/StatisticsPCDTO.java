@@ -26,6 +26,9 @@ public class StatisticsPCDTO {
 		// VRID
 		private String vrId;
 		
+		//日期
+		private String date;
+		
 		private String consumption;
 
 		public Integer getAbtest() {
@@ -100,6 +103,14 @@ public class StatisticsPCDTO {
 
 		public void setConsumption(String consumption) {
 			this.consumption = consumption;
+		}
+
+		public String getDate() {
+			return date;
+		}
+
+		public void setDate(String date) {
+			this.date = date;
 		}
 		
 		
