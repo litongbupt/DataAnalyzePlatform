@@ -12,6 +12,7 @@
 		<parameter name="pv" db-name="pv" show-name="展示量" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
 		<parameter name="eclpv" db-name="eclpv" show-name="最终点击" show="true" type="string"  width="5000" selected="true"></parameter>
 		<parameter name="click" db-name="click" show-name="点击量" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="hour" db-name="hour" show-name="小时" show="true" type="string" width="4000" selected="true"></parameter>
 	</resou-info>
 	<!-- PC多VR：统计查询 -->
 	<resou-info name="MULTIVR_PC_STATISTICSPC" model="" table="tb_detail_">
@@ -24,5 +25,7 @@
 		<parameter name="pv" db-name="pv" show-name="展示量" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
 		<parameter name="eclpv" db-name="eclpv" show-name="最终点击" show="true" type="string"  width="5000" selected="true"></parameter>
 		<parameter name="click" db-name="click" show-name="点击量" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="click" db-name="click" show-name="点击量" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="hour" db-name="hour" show-name="小时" show="true" type="string" width="4000" selected="true"></parameter>
 	</resou-info>
 </resou-infos>
