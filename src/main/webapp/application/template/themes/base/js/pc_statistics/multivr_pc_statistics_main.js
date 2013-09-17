@@ -17,8 +17,8 @@ $(function(){
 	    colModel : [   
 	      	{name:"vrId",index:"type",label : "VRID",width:30,sortable:true,align:"center"},
 	        {name:"type",index:"type",label : "类&nbsp;型",width:50,sortable:false,align:"center"},
-	        {name:"position",index:"position",label : "位&nbsp;置",width:30,sortable:true,align:"center"},
-	        {name:"abtest",index:"abtest",label : "abtest",width:30,sortable:true,align:"center"},
+	        {name:"position",index:"position",label : "位&nbsp;置",width:20,sortable:true,align:"center"},
+	        {name:"abtest",index:"abtest",label : "abtest",width:20,sortable:true,align:"center"},
 	        {name:"clickid",index:"clickid",label : "clickid",width:30,sortable:true,align:"center"},
 	        //{name:"hour",index:"hour",label : "时间",width:30,sortable:true,align:"center"},
 	        {name:"pv",index:"pv",label : "展现量",width:30,sortable:true,align:"center",firstsortorder:"desc" },

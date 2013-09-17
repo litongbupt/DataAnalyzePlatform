@@ -7,10 +7,12 @@ import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +25,8 @@ import org.springframework.stereotype.Service;
 
 import com.bupt.app.multivrPC.dao.WordPCMapper;
 import com.bupt.app.multivrPC.dto.WordPCDTO;
-import com.bupt.app.multivrPC.model.WordPC;
 import com.bupt.app.multivrPC.model.WordPCExample;
+import com.bupt.app.multivrPC.model.WordPC;
 import com.bupt.app.multivrPC.model.WordPCExample.Criteria;
 import com.bupt.app.multivrPC.service.WordPCService;
 import com.bupt.app.multivrPC.utils.MultivrPCVRTypeUtils;
@@ -45,6 +47,176 @@ public class WordPCServiceImpl implements WordPCService {
 	@Resource(name="wordPCMapper")
 	private WordPCMapper wordPCMapper;
 	
+	private Map<Integer,Integer> totalRecordMap = new TreeMap<Integer,Integer>();
+
+	@Override
+	public int getTotalRecords(HttpServletRequest request, Boolean search) {
+		getTotalRecordMap(request, search);
+		int totalRecord = 0;
+		for (Integer record : totalRecordMap.values()) {
+			totalRecord+=record;
+		}
+		return totalRecord;
+	}
+	
+	
+	/**
+	 * @param request
+	 * @param search
+	 * @param wordPCExample
+	 * @author 李彤 2013-9-17 上午10:54:44
+	 */
+	private void getTotalRecordMap(HttpServletRequest request, Boolean search) {
+		WordPCExample wordPCExample = new WordPCExample();
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		String timelevel = request.getParameter("timelevel");
+		
+		int startDay;
+		int endDay;
+		try {
+			startDay = Integer.parseInt(Utils.getDate(startTime));
+			endDay = Integer.parseInt(Utils.getDate(endTime));
+		} catch (Exception e) {
+			// 设置默认选择哪张表
+			startDay = endDay = Integer.parseInt(Utils.lastDate(new Date()));
+		}
+
+		Integer startHour = null;
+		Integer endHour = null;
+		if(startDay==endDay){
+			wordPCExample.setDate(startDay + "");
+			startHour = Utils.getHour(startTime);
+			endHour = Utils.getHour(endTime);
+			if(startHour==0&&endHour==23){
+				startHour=null;
+				endHour=null;
+			}
+			if (search) {
+				addCriteria(request, wordPCExample, startHour, endHour);
+			}
+			if(timelevel.equals("hour")){
+				totalRecordMap.put(startDay, wordPCMapper.countByExample(wordPCExample));
+			}else{
+				totalRecordMap.put(startDay, wordPCMapper.countDayByExample(wordPCExample));
+			}
+			
+		}else if (startDay < endDay) {
+			if (search) {
+				addCriteria(request, wordPCExample, startHour, endHour);
+			}
+			for (int currentDay = startDay; currentDay <= endDay; ++currentDay) {
+				wordPCExample.setDate(currentDay + "");
+				// 添加查询条件
+				if(timelevel.equals("hour")){
+					totalRecordMap.put(startDay, wordPCMapper.countByExample(wordPCExample));
+				}else{
+					totalRecordMap.put(startDay, wordPCMapper.countDayByExample(wordPCExample));
+				}
+			}
+		}
+	}
+	
+	
+
+	@Override
+	public List<WordPCDTO> listResults(int start, int limit, String sortName,
+			String sortOrder, HttpServletRequest request,Boolean search) {
+		//DTO
+		List<WordPCDTO> wordDTOList = new ArrayList<WordPCDTO>();
+		
+		//获取起始日期
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		String timelevel = request.getParameter("timelevel");
+		
+		int startDay;
+		int endDay;
+		try {
+			startDay = Integer.parseInt(Utils.getDate(startTime));
+			endDay = Integer.parseInt(Utils.getDate(endTime));
+		} catch (Exception e) {
+			// 设置默认选择哪张表
+			startDay = endDay = Integer.parseInt(Utils.lastDate(new Date()));
+		}
+		
+		Integer startHour = null;
+		Integer endHour = null;
+		
+		if(startDay==endDay){//如果是同一天，判断小时
+			WordPCExample wordPCExample = new WordPCExample();
+			wordPCExample.setOrderByClause( sortName +" "+ sortOrder);
+			wordPCExample.setDate(startDay + "");
+			startHour = Utils.getHour(startTime);
+			endHour = Utils.getHour(endTime);
+			if(startHour==0&&endHour==23){
+				startHour=null;
+				endHour=null;
+			}
+			if(search) addCriteria(request, wordPCExample, startHour, endHour);
+			
+			wordPCExample.setDate(startDay+"");
+			wordPCExample.setStart(start);
+			wordPCExample.setLimit(limit);
+			wordDTOList.addAll(selectByPCExample(wordPCExample,timelevel));
+		}else if (startDay < endDay) {//不考虑小时
+			if(totalRecordMap.isEmpty()){
+				getTotalRecordMap(request, search);
+			}
+			WordPCExample wordPCExample = new WordPCExample();
+			wordPCExample.setOrderByClause( sortName +" "+ sortOrder);
+			if(search) addCriteria(request, wordPCExample, startHour, endHour);
+			int currentTotalRecord = 0;
+			for (int currentDay = startDay; currentDay <= endDay; currentDay++) {
+				Integer currentRecordsCount = totalRecordMap.get(currentDay);
+				if (start + limit <= currentTotalRecord + currentRecordsCount) {
+					wordPCExample.setDate(currentDay + "");
+					wordPCExample.setStart(start - currentTotalRecord);
+					wordPCExample.setLimit(limit);
+					wordDTOList.addAll(selectByPCExample(wordPCExample,timelevel));
+					break;
+				} else if (start + limit > currentTotalRecord + currentRecordsCount&&currentTotalRecord + currentRecordsCount - start>0) {
+					wordPCExample.setDate(currentDay + "");
+					wordPCExample.setStart(start - currentTotalRecord);
+					wordPCExample.setLimit(currentTotalRecord + currentRecordsCount - start);
+					wordDTOList.addAll(selectByPCExample(wordPCExample,timelevel));
+					limit = limit - (currentTotalRecord + currentRecordsCount - start);
+					start=currentTotalRecord+currentRecordsCount;
+				}
+				currentTotalRecord += currentRecordsCount;
+			}
+			totalRecordMap.clear();
+		}
+		return wordDTOList;
+	}
+	
+	private Collection<? extends WordPCDTO> selectByPCExample(
+			WordPCExample wordPCExample,String timelevel) {
+		Map<String, String> vrMap = MultivrPCVRTypeUtils.getVRType();
+		List<WordPCDTO> wordDTOList = new ArrayList<WordPCDTO>();
+		List<WordPC> wordPCs = null;
+		if(timelevel.equals("hour")){
+			wordPCs = wordPCMapper.selectByExample(wordPCExample);
+		}else{
+			wordPCs = wordPCMapper.selectDayByExample(wordPCExample);
+		}
+		WordPCDTO wordPCDTO = null;
+		for (WordPC wordPC : wordPCs) {
+			wordPCDTO = new WordPCDTO();
+			Utils.copyProperties(wordPCDTO, wordPC);
+			//VR类型转换
+			wordPCDTO.setVrId(wordPC.getType());
+			if(vrMap.containsKey(wordPC.getType())){
+				wordPCDTO.setType(vrMap.get(wordPC.getType()));
+			}
+			wordPCDTO.setConsumption(wordPCDTO.getEclpv()*100/wordPCDTO.getPv()+"%");
+			wordPCDTO.setDate(wordPCExample.getDate());
+			wordDTOList.add(wordPCDTO);
+		}
+		return wordDTOList;
+	}
+
+
 	@Override
 	public WordPCDTO selectByPrimaryKey(String title) {
 		WordPCExample wordPCExample = new WordPCExample();
@@ -76,55 +248,6 @@ public class WordPCServiceImpl implements WordPCService {
 	}
 
 
-	@Override
-	public int getTotalRecords(HttpServletRequest request, Boolean search) {
-		WordPCExample wordPCExample = new WordPCExample();
-		//设置默认选择哪张表
-		wordPCExample.setDate(Utils.lastDate(new Date()));
-		//添加查询条件
-		if(search) addCriteria(request, wordPCExample);
-		return wordPCMapper.countDayByExample(wordPCExample);
-	}
-
-	@Override
-	public List<WordPCDTO> listResults(int start, int limit, String sortName,
-			String sortOrder, HttpServletRequest request,Boolean search) {
-		WordPCExample wordPCExample = new WordPCExample();
-		wordPCExample.setOrderByClause( sortName +" "+ sortOrder);
-		wordPCExample.setStart(start);
-		wordPCExample.setLimit(limit);
-		//设置默认选择哪张表
-		wordPCExample.setDate(Utils.lastDate(new Date()));
-		
-		//添加查询条件
-		if(search) {
-			addCriteria(request,  wordPCExample);
-			//当上传的查询词表生效一次后，清空词表信息
-			String wordsKey = request.getSession().getId()+"_PCWORD";
-			importWords.remove(wordsKey);
-		}
-
-		//获取结果列表
-		List<WordPC> wordPCs = wordPCMapper.selectByExample(wordPCExample);
-		//获取VR类型 为了展示方便这里先不转换VR类型了
-		Map<String, String> vrMap = MultivrPCVRTypeUtils.getVRType();
-		
-		List<WordPCDTO> wordDTOList = new ArrayList<WordPCDTO>();
-		WordPCDTO wordPCDTO = null;
-		for (WordPC wordPC : wordPCs) {
-			wordPCDTO = new WordPCDTO();
-			Utils.copyProperties(wordPCDTO, wordPC);
-			//VR类型转换
-			wordPCDTO.setVrId(wordPC.getType());
-			if(vrMap.containsKey(wordPC.getType())){
-				wordPCDTO.setType(vrMap.get(wordPC.getType()));
-				wordPCDTO.setConsumption(wordPCDTO.getEclpv()*100/wordPCDTO.getPv()+"%");
-			}
-			wordDTOList.add(wordPCDTO);
-		}
-		return wordDTOList;
-	}
-
 	/**
 	 * 添加查询条件
 	 * @param request
@@ -132,7 +255,7 @@ public class WordPCServiceImpl implements WordPCService {
 	 * @param wordPCExample
 	 * @author 李彤 2013-8-26 下午8:18:21
 	 */
-	private void addCriteria(HttpServletRequest request,WordPCExample wordPCExample) {
+	private void addCriteria(HttpServletRequest request,WordPCExample wordPCExample,Integer startHour,Integer endHour) {
 			String keyword =  request.getParameter("keyword");
 			String[] type = request.getParameterValues("type[]");
 			if(type==null||type.length==0) type = request.getParameterValues("type");
@@ -144,13 +267,12 @@ public class WordPCServiceImpl implements WordPCService {
 			if(debug){
 				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startTime:"+startTime+"endTime:"+endTime+"date:"+Utils.getDate(startTime)+"clickid: "+clickid);
 			}
-			wordPCExample.setDate(Utils.getDate(startTime));
 			Criteria criteria = wordPCExample.createCriteria();
 			if(type!=null&&type.length>0&&!type[0].equalsIgnoreCase("null")) criteria.andTypeIn(Arrays.asList(type));
 			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
 			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
-			if(!StringUtils.isEmpty(startTime)&&!StringUtils.isEmpty(endTime)) criteria.andHourBetween(Utils.getHour(startTime), Utils.getHour(endTime));
 			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);
+			if(startHour!=null&&endHour!=null) criteria.andHourBetween(startHour, endHour);
 			String wordsKey = request.getSession().getId()+"_PCWORD";
 			if(importWords.containsKey(wordsKey)){//如果有上传的词表
 				List<String> wordsList = importWords.get(wordsKey);

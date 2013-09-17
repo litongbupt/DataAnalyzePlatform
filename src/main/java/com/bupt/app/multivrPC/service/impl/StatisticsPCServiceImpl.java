@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javax.annotation.Resource;
@@ -105,7 +103,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			String sortOrder, HttpServletRequest request,Boolean search) {
 
 		//DTO
-		List<StatisticsPCDTO> wordDTOList = new ArrayList<StatisticsPCDTO>();
+		List<StatisticsPCDTO> statisticsDTOList = new ArrayList<StatisticsPCDTO>();
 		
 		//获取起始日期
 		String startTime = request.getParameter("startTime");
@@ -137,7 +135,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			statisticsPCExample.setDate(startDay+"");
 			statisticsPCExample.setStart(start);
 			statisticsPCExample.setLimit(limit);
-			wordDTOList.addAll(selectByPCExample(statisticsPCExample));
+			statisticsDTOList.addAll(selectByPCExample(statisticsPCExample));
 		}else if (startDay < endDay) {//不考虑小时
 			StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
 			statisticsPCExample.setOrderByClause( sortName +" "+ sortOrder);
@@ -152,22 +150,21 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 					statisticsPCExample.setDate(currentDay + "");
 					statisticsPCExample.setStart(start - currentTotalRecord);
 					statisticsPCExample.setLimit(limit);
-					wordDTOList.addAll(selectByPCExample(statisticsPCExample));
+					statisticsDTOList.addAll(selectByPCExample(statisticsPCExample));
 					break;
 				} else if (start + limit > currentTotalRecord + currentRecordsCount&&currentTotalRecord + currentRecordsCount - start>0) {
 					statisticsPCExample.setDate(currentDay + "");
 					statisticsPCExample.setStart(start - currentTotalRecord);
 					statisticsPCExample.setLimit(currentTotalRecord + currentRecordsCount - start);
-					wordDTOList.addAll(selectByPCExample(statisticsPCExample));
+					statisticsDTOList.addAll(selectByPCExample(statisticsPCExample));
 					limit = limit - (currentTotalRecord + currentRecordsCount - start);
 					start=currentTotalRecord+currentRecordsCount;
 				}
 				currentTotalRecord += currentRecordsCount;
 			}
-				
 		}
 		totalRecordMap.clear();
-		return wordDTOList;
+		return statisticsDTOList;
 	}
 
 	/**

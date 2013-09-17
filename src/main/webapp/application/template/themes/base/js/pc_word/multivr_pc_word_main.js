@@ -19,14 +19,15 @@ $(function(){
 	      	{name:"keyword",index:"keyword",label : "查询词",width:60,sortable:true,align:"center"},	 
 	      	{name:"vrId",index:"type",label : "VRID",width:30,sortable:true,align:"center"},
 	        {name:"type",index:"type",label : "类&nbsp;型",width:50,sortable:false,align:"center"},
-	        {name:"position",index:"position",label : "位&nbsp;置",width:30,sortable:true,align:"center"},
-	        {name:"abtest",index:"abtest",label : "abtest",width:30,sortable:true,align:"center"},
+	        {name:"position",index:"position",label : "位&nbsp;置",width:20,sortable:true,align:"center"},
+	        {name:"abtest",index:"abtest",label : "abtest",width:20,sortable:true,align:"center"},
 	        {name:"clickid",index:"clickid",label : "clickid",width:30,sortable:true,align:"center"},
-	        //{name:"hour",index:"hour",label : "时间",width:30,sortable:true,align:"center"},
 	        {name:"pv",index:"pv",label : "展现量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
 	        {name:"click",index:"click",label : "点击量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
 	        {name:"eclpv",index:"eclpv",label : "最终点击",width:30,sortable:true,align:"center",firstsortorder:"desc" },
-	        {name:"consumption",index:"consumption",label : "消费率",width:30,sortable:false,align:"center",firstsortorder:"desc" }
+	        {name:"consumption",index:"consumption",label : "消费率",width:30,sortable:false,align:"center",firstsortorder:"desc" },
+	        {name:"date",index:"date",label : "日期",width:30,sortable:false,align:"center",firstsortorder:"desc" },
+	        {name:"hour",index:"hour",label : "时间",width:30,sortable:true,align:"center"}
 	        //{name:"setup",label : "配&nbsp;置",width:30,sortable:false,align:"center" }
 		 ],
 	    pager: "#listPager",	    
@@ -245,7 +246,8 @@ function query() {
 		position : $("#query_position").val().trim(),
 		abtest : $("#query_abtest").val().trim(),
 		keyword : $("#query_keyword").val().trim(),
-		clickid : $("#query_clickid").val().trim()
+		clickid : $("#query_clickid").val().trim(),
+		timelevel:$("#query_timelevel").val().trim()
 	};
 	//合并数据 	
 	postData = $.extend($("#modelList").getGridParam("postData"), postData);

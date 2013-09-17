@@ -28,7 +28,7 @@ public class WordPCDTO {
 	private String keyword;
 
 	// 时间
-	//private Integer hour;
+	private Integer hour;
 
 	// VR类型
 	private String type;
@@ -41,6 +41,9 @@ public class WordPCDTO {
 	
 	//消费率
 	private String consumption;
+	
+	//日期
+	private String date;
 
 	public String getTitle() {
 		return title;
@@ -70,9 +73,9 @@ public class WordPCDTO {
 		return keyword;
 	}
 
-//	public Integer getHour() {
-//		return hour;
-//	}
+	public Integer getHour() {
+		return hour;
+	}
 
 	public String getType() {
 		return type;
@@ -110,9 +113,9 @@ public class WordPCDTO {
 		this.keyword = keyword;
 	}
 
-//	public void setHour(Integer hour) {
-//		this.hour = hour;
-//	}
+	public void setHour(Integer hour) {
+		this.hour = hour;
+	}
 
 	public void setType(String type) {
 		this.type = type;
@@ -137,6 +140,13 @@ public class WordPCDTO {
 	public void setConsumption(String consumption) {
 		this.consumption = consumption;
 	}
-	
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getDate(){
+		return date;
+	}
 
 }

@@ -29,7 +29,7 @@
     		<form id="exportForm" method="post" >
         	<label>从：<input type="text" size="15" id="query_startTime" name="startTime"/></label>
             <label>到：<input type="text" size="15" id="query_endTime" name="endTime"/></label>
-    		<label>类型 :
+            <label>类型 :
                 <select id="query_type" name="type" size="15" multiple="multiple" style="width: 160px">
             		<option></option>
          	    </select>
@@ -41,6 +41,12 @@
          	</label>
             <label>abtest:	
             	<select id="query_abtest" name="abtest" size="1">
+         	    </select>
+            </label>
+            <label>时间级别:	
+            	<select id="query_timelevel" name="timelevel" size="1">
+         	    	<option value="hour" >小时</option>
+         	    	<option value="day" selected="selected">天</option>
          	    </select>
             </label>
             <label>查询词:<input type="text" size="8" id="query_keyword" name="keyword"/>
