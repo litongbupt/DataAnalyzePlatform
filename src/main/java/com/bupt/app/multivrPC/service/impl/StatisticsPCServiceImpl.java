@@ -43,8 +43,22 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 
 	@Override
 	public int getTotalRecords(HttpServletRequest request, Boolean search) {
-		StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
+		getTotalRecordMap(request, search);
+		int totalRecord = 0;
+		for (Integer record : totalRecordMap.values()) {
+			totalRecord+=record;
+		}
+		return totalRecord;
+	}
 
+	/**
+	 * @param request
+	 * @param search
+	 * @param statisticsPCExample
+	 * @author 李彤 2013-9-17 上午10:54:44
+	 */
+	private void getTotalRecordMap(HttpServletRequest request, Boolean search) {
+		StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
 		
@@ -84,11 +98,6 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 				totalRecordMap.put(currentDay, statisticsPCMapper.countByExample(statisticsPCExample));
 			}
 		}
-		int totalRecord = 0;
-		for (Integer record : totalRecordMap.values()) {
-			totalRecord+=record;
-		}
-		return totalRecord;
 	}
 
 	@Override
@@ -135,6 +144,9 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			if(search) addCriteria(request, statisticsPCExample, startHour, endHour);
 			int currentTotalRecord = 0;
 			for (int currentDay = startDay; currentDay <= endDay; currentDay++) {
+				if(totalRecordMap.isEmpty()){
+					getTotalRecordMap(request, search);
+				}
 				Integer currentRecordsCount = totalRecordMap.get(currentDay);
 				if (start + limit <= currentTotalRecord + currentRecordsCount) {
 					statisticsPCExample.setDate(currentDay + "");
@@ -154,6 +166,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			}
 				
 		}
+		totalRecordMap.clear();
 		return wordDTOList;
 	}
 
