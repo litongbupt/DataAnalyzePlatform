@@ -27,7 +27,7 @@ $(function(){
 	        {name:"eclpv",index:"eclpv",label : "最终点击",width:30,sortable:true,align:"center",firstsortorder:"desc" },
 	        {name:"consumption",index:"consumption",label : "消费率",width:30,sortable:false,align:"center",firstsortorder:"desc" },
 	        {name:"date",index:"date",label : "日期",width:30,sortable:false,align:"center",firstsortorder:"desc" },
-	        {name:"hour",index:"hour",label : "时间",width:30,sortable:true,align:"center"}
+	        {name:"hour",index:"hour",label : "时间",width:30,sortable:true,align:"center",firstsortorder:"asc"}
 	        //{name:"setup",label : "配&nbsp;置",width:30,sortable:false,align:"center" }
 		 ],
 	    pager: "#listPager",	    

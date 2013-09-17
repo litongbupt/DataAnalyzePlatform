@@ -16,6 +16,8 @@ public class StatisticsPCDTO {
 		// clickid
 		private String clickid;
 
+		// 时间
+		private Integer hour;
 
 		// VR类型
 		private String type;
@@ -111,6 +113,14 @@ public class StatisticsPCDTO {
 
 		public void setDate(String date) {
 			this.date = date;
+		}
+
+		public Integer getHour() {
+			return hour;
+		}
+
+		public void setHour(Integer hour) {
+			this.hour = hour;
 		}
 		
 		

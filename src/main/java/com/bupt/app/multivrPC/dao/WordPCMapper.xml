@@ -158,7 +158,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by position, clickid,type, keyword) as t1
+    group by position, clickid,type, keyword, abtest) as t1
   </select>
 
 </mapper>

@@ -42,6 +42,12 @@
             	<select id="query_abtest" name="abtest" size="1">
          	    </select>
             </label>
+            <label>时间级别:	
+            	<select id="query_timelevel" name="timelevel" size="1">
+         	    	<option value="hour" >小时</option>
+         	    	<option value="day" selected="selected">天</option>
+         	    </select>
+            </label>
             <label>clickid:<input type="text" size="8" id="query_clickid" name="clickid"/></label>
                 <input id="export_selectCols" name="selectCols" type="hidden" />
 		       	<input id="export_maxRecords" name="maxRecords" type="hidden" />
