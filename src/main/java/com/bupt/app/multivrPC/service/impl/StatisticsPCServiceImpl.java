@@ -59,6 +59,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 		StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
+		String timelevel = request.getParameter("timelevel");
 		
 		int startDay;
 		int endDay;
@@ -83,16 +84,20 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			if (search) {
 				addCriteria(request, statisticsPCExample, startHour, endHour);
 			}
-			totalRecordMap.put(startDay, statisticsPCMapper.countByExample(statisticsPCExample));
+			if(timelevel.equals("hour")){
+				totalRecordMap.put(startDay, statisticsPCMapper.countByExample(statisticsPCExample));
+			}else{
+				totalRecordMap.put(startDay, statisticsPCMapper.countDayByExample(statisticsPCExample));
+			}
 		}else if (startDay < endDay) {
-			if (search) {
+			if (search) {// 添加查询条件
 //				if (currentDay == startDay) {startHour = Utils.getHour(startTime);if(startHour!=0) endHour=23;} 
 //				if (currentDay == endDay) {endHour = Utils.getHour(endTime);if(endHour!=23) startHour=0;}
 				addCriteria(request, statisticsPCExample, startHour, endHour);
 			}
 			for (int currentDay = startDay; currentDay <= endDay; ++currentDay) {
 				statisticsPCExample.setDate(currentDay + "");
-				// 添加查询条件
+				
 				totalRecordMap.put(currentDay, statisticsPCMapper.countByExample(statisticsPCExample));
 			}
 		}
@@ -108,6 +113,8 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 		//获取起始日期
 		String startTime = request.getParameter("startTime");
 		String endTime = request.getParameter("endTime");
+		String timelevel = request.getParameter("timelevel");
+		
 		int startDay;
 		int endDay;
 		try {
@@ -135,7 +142,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			statisticsPCExample.setDate(startDay+"");
 			statisticsPCExample.setStart(start);
 			statisticsPCExample.setLimit(limit);
-			statisticsDTOList.addAll(selectByPCExample(statisticsPCExample));
+			statisticsDTOList.addAll(selectByPCExample(statisticsPCExample,timelevel));
 		}else if (startDay < endDay) {//不考虑小时
 			StatisticsPCExample statisticsPCExample = new StatisticsPCExample();
 			statisticsPCExample.setOrderByClause( sortName +" "+ sortOrder);
@@ -150,13 +157,13 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 					statisticsPCExample.setDate(currentDay + "");
 					statisticsPCExample.setStart(start - currentTotalRecord);
 					statisticsPCExample.setLimit(limit);
-					statisticsDTOList.addAll(selectByPCExample(statisticsPCExample));
+					statisticsDTOList.addAll(selectByPCExample(statisticsPCExample,timelevel));
 					break;
 				} else if (start + limit > currentTotalRecord + currentRecordsCount&&currentTotalRecord + currentRecordsCount - start>0) {
 					statisticsPCExample.setDate(currentDay + "");
 					statisticsPCExample.setStart(start - currentTotalRecord);
 					statisticsPCExample.setLimit(currentTotalRecord + currentRecordsCount - start);
-					statisticsDTOList.addAll(selectByPCExample(statisticsPCExample));
+					statisticsDTOList.addAll(selectByPCExample(statisticsPCExample,timelevel));
 					limit = limit - (currentTotalRecord + currentRecordsCount - start);
 					start=currentTotalRecord+currentRecordsCount;
 				}
@@ -173,10 +180,16 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 	 * @author 李彤 2013-9-12 下午2:15:21
 	 */
 	private List<StatisticsPCDTO> selectByPCExample(
-			StatisticsPCExample statisticsPCExample) {
+			StatisticsPCExample statisticsPCExample,String timelevel) {
 		Map<String, String> vrMap = MultivrPCVRTypeUtils.getVRType();
 		List<StatisticsPCDTO> wordDTOList = new ArrayList<StatisticsPCDTO>();
-		List<StatisticsPC> statisticsPCs = statisticsPCMapper.selectByExample(statisticsPCExample);
+		List<StatisticsPC> statisticsPCs;
+		if(timelevel.equals("hour")){
+			statisticsPCs=statisticsPCMapper.selectByExample(statisticsPCExample);
+		}else{
+			statisticsPCs=statisticsPCMapper.selectDayByExample(statisticsPCExample);
+		}
+		
 		StatisticsPCDTO statisticsPCDTO = null;
 		for (StatisticsPC statisticsPC : statisticsPCs) {
 			statisticsPCDTO = new StatisticsPCDTO();
@@ -187,7 +200,6 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 				statisticsPCDTO.setType(vrMap.get(statisticsPC.getType()));
 			}
 			statisticsPCDTO.setConsumption(statisticsPCDTO.getEclpv()*100/statisticsPCDTO.getPv()+"%");
-			statisticsPCDTO.setDate(statisticsPCExample.getDate());
 			wordDTOList.add(statisticsPCDTO);
 		}
 		return wordDTOList;

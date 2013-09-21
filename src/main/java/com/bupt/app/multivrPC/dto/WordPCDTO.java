@@ -43,7 +43,7 @@ public class WordPCDTO {
 	private String consumption;
 	
 	//日期
-	private String date;
+	private String day;
 
 	public String getTitle() {
 		return title;
@@ -141,12 +141,14 @@ public class WordPCDTO {
 		this.consumption = consumption;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public String getDay() {
+		return day;
 	}
 
-	public String getDate(){
-		return date;
+	public void setDay(String day) {
+		this.day = day;
 	}
+
+
 
 }

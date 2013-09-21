@@ -9,4 +9,8 @@ public interface StatisticsPCMapper {
     int countByExample(StatisticsPCExample example);
 
     List<StatisticsPC> selectByExample(StatisticsPCExample example);
+    
+    int countDayByExample(StatisticsPCExample example);
+
+    List<StatisticsPC> selectDayByExample(StatisticsPCExample example);
 }

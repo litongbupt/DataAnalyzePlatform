@@ -29,8 +29,12 @@ public class StatisticsPCDTO {
 		private String vrId;
 		
 		//日期
-		private String date;
+		private String day;
 		
+		//聚合id
+		private String jhid;
+		
+		//消费率
 		private String consumption;
 
 		public Integer getAbtest() {
@@ -107,12 +111,13 @@ public class StatisticsPCDTO {
 			this.consumption = consumption;
 		}
 
-		public String getDate() {
-			return date;
+
+		public String getDay() {
+			return day;
 		}
 
-		public void setDate(String date) {
-			this.date = date;
+		public void setDay(String day) {
+			this.day = day;
 		}
 
 		public Integer getHour() {
@@ -121,6 +126,14 @@ public class StatisticsPCDTO {
 
 		public void setHour(Integer hour) {
 			this.hour = hour;
+		}
+
+		public String getJhid() {
+			return jhid;
+		}
+
+		public void setJhid(String jhid) {
+			this.jhid = jhid;
 		}
 		
 		

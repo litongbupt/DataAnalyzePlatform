@@ -102,12 +102,11 @@ public class WordPCServiceImpl implements WordPCService {
 			}
 			
 		}else if (startDay < endDay) {
-			if (search) {
+			if (search) {// 添加查询条件
 				addCriteria(request, wordPCExample, startHour, endHour);
 			}
 			for (int currentDay = startDay; currentDay <= endDay; ++currentDay) {
 				wordPCExample.setDate(currentDay + "");
-				// 添加查询条件
 				if(timelevel.equals("hour")){
 					totalRecordMap.put(startDay, wordPCMapper.countByExample(wordPCExample));
 				}else{
@@ -210,7 +209,6 @@ public class WordPCServiceImpl implements WordPCService {
 				wordPCDTO.setType(vrMap.get(wordPC.getType()));
 			}
 			wordPCDTO.setConsumption(wordPCDTO.getEclpv()*100/wordPCDTO.getPv()+"%");
-			wordPCDTO.setDate(wordPCExample.getDate());
 			wordDTOList.add(wordPCDTO);
 		}
 		return wordDTOList;
@@ -301,7 +299,7 @@ public class WordPCServiceImpl implements WordPCService {
 
 	@Override
 	public List<Integer> getAbtestList() {
-		return Arrays.asList(new Integer[]{0,1,2,3,4,5});
+		return Arrays.asList(new Integer[]{0,1,2,3,4,5,6,7});
 	}
 
 
