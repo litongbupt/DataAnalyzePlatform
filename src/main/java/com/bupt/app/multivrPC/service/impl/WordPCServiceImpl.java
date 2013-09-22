@@ -339,7 +339,8 @@ public class WordPCServiceImpl implements WordPCService {
 
 	@Override
 	public Map<String, String> getJhidMap() {
-		Map<String,String> map = MultivrPCVRTypeUtils.getVRType();
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("1001", "人物聚合");
 		return map;
 	}
 
