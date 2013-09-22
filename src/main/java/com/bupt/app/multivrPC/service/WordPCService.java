@@ -51,6 +51,8 @@ public interface WordPCService extends BaseService<WordPC, WordPCDTO>{
 	 * @author 李彤 2013-8-27 下午11:44:11
 	 */
 	public String validateExcel(InputStream is, String sessionId);
+
+	public Map<String, String> getJhidMap();
 	
 	
 }

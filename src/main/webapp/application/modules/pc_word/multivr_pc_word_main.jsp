@@ -34,6 +34,11 @@
             		<option></option>
          	    </select>
          	</label>
+            <label>聚合 :
+                <select id="query_jhid" name="jhid" size="15" multiple="multiple" style="width: 160px">
+            		<option></option>
+         	    </select>
+         	</label>
             <label>位置 :
                 <select id="query_position" name="position" size="1">
              	  <option value=''>--请选择--</option>

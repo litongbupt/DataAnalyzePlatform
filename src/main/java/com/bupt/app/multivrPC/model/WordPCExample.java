@@ -797,6 +797,11 @@ public class WordPCExample {
             addCriterion("type in", values, "type");
             return (Criteria) this;
         }
+        
+		public Criteria andJhidIn(List<String> values) {
+			addCriterion("jhid in", values, "jhid");
+            return (Criteria) this;
+		}
 
         public Criteria andTypeNotIn(List<String> values) {
             addCriterion("type not in", values, "type");
@@ -885,6 +890,7 @@ public class WordPCExample {
         protected Criteria() {
             super();
         }
+
     }
 
     /**

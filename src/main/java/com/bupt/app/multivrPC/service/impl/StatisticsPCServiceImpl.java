@@ -215,14 +215,17 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 	private void addCriteria(HttpServletRequest request,StatisticsPCExample statisticsPCExample,Integer startHour,Integer endHour) {
 			String[] type = request.getParameterValues("type[]");
 			if(type==null||type.length==0) type = request.getParameterValues("type");
+			String[] jhid = request.getParameterValues("jhid[]");
+			if(jhid==null||jhid.length==0) jhid = request.getParameterValues("jhid");
 			String position = request.getParameter("position");
 			String abtest = request.getParameter("abtest");
 			String clickid = request.getParameter("clickid");
 			if(debug){
-				log.debug("type:"+type+"position:"+position+"abtest:"+abtest+"startHour:"+startHour+"endHour:"+endHour+"clickid: "+clickid);
+				log.debug("jhid"+Arrays.toString(jhid)+"type:"+Arrays.toString(type)+"position:"+position+"abtest:"+abtest+"clickid: "+clickid);
 			}
 			Criteria criteria = statisticsPCExample.createCriteria();
 			if(type!=null&&type.length>0&&!type[0].equalsIgnoreCase("null")) criteria.andTypeIn(Arrays.asList(type));
+			if(jhid!=null&&jhid.length>0&&!jhid[0].equalsIgnoreCase("null")) criteria.andJhidIn(Arrays.asList(jhid));
 			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
 			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
 			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);

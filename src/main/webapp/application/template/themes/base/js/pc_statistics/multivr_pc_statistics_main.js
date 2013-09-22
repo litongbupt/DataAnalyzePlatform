@@ -86,6 +86,9 @@ $(function(){
 		$("#query_type").select2({
 			placeholder: "-请选择-"
 		});
+		$("#query_jhid").select2({
+			placeholder: "-请选择-"
+		});
   	});
   	
   	
@@ -158,7 +161,8 @@ function query() {
 		position : $("#query_position").val().trim(),
 		abtest : $("#query_abtest").val().trim(),
 		clickid : $("#query_clickid").val().trim(),
-		timelevel:$("#query_timelevel").val().trim()
+		timelevel:$("#query_timelevel").val().trim(),
+		jhid: $("#query_jhid").val()
 	};
 	//合并数据 	
 	postData = $.extend($("#modelList").getGridParam("postData"), postData);

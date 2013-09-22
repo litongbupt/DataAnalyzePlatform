@@ -267,6 +267,11 @@ public class StatisticsPCExample {
             addCriterion("title <", value, "title");
             return (Criteria) this;
         }
+        
+		public Criteria andJhidIn(List<String> values) {
+            addCriterion("jhid in", values, "jhid");
+            return (Criteria) this;
+		}
 
         public Criteria andTitleLessThanOrEqualTo(String value) {
             addCriterion("title <=", value, "title");
@@ -816,6 +821,7 @@ public class StatisticsPCExample {
         protected Criteria() {
             super();
         }
+
     }
 
     /**

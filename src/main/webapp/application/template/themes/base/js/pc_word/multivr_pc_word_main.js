@@ -88,7 +88,7 @@ $(function(){
 		$("#query_type").select2({
 			placeholder: "-请选择-"
 		});
-		$("#query_clickid").select2({
+		$("#query_jhid").select2({
 			placeholder: "-请选择-"
 		});
   	});
@@ -248,7 +248,8 @@ function query() {
 		abtest : $("#query_abtest").val().trim(),
 		keyword : $("#query_keyword").val().trim(),
 		clickid : $("#query_clickid").val().trim(),
-		timelevel:$("#query_timelevel").val().trim()
+		timelevel:$("#query_timelevel").val().trim(),
+		jhid: $("#query_jhid").val()
 	};
 	//合并数据 	
 	postData = $.extend($("#modelList").getGridParam("postData"), postData);

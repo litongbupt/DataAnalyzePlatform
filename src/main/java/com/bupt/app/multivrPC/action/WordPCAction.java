@@ -71,6 +71,8 @@ public class WordPCAction extends JqGridBaseAction<WordPCDTO>{
 		List<SelectOptionDTO> positionSelectOptionList = new ArrayList<SelectOptionDTO>();
 		//abtest列表
 		List<SelectOptionDTO> abtestSelectOptionList = new ArrayList<SelectOptionDTO>();
+		//聚合id
+		List<SelectOptionDTO> jhidSelectOptionList = new ArrayList<SelectOptionDTO>();
 		
 		SelectOptionDTO  tempSelectOptionDto = null;
 		
@@ -104,11 +106,22 @@ public class WordPCAction extends JqGridBaseAction<WordPCDTO>{
 			abtestSelectOptionList.add(tempSelectOptionDto);
 		}
 		
+		//聚合id
+		Map<String,String> jhidMap  = this.wordPCService.getJhidMap();
+		for (Entry<String,String> entry : jhidMap.entrySet()) {
+			tempSelectOptionDto = new SelectOptionDTO();
+			tempSelectOptionDto.setName(entry.getValue());
+			tempSelectOptionDto.setValue(entry.getKey());
+			jhidSelectOptionList.add(tempSelectOptionDto);
+		}
+		
+		
 		//放入Map返回结果
 		Map<String, List<SelectOptionDTO>> map = new HashMap<String, List<SelectOptionDTO>>();
 		map.put("type", typeSelectOptionList);
 		map.put("position", positionSelectOptionList);
 		map.put("abtest", abtestSelectOptionList);
+		map.put("jhid", jhidSelectOptionList);
 		return map;
 	}
 
