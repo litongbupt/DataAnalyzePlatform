@@ -30,7 +30,7 @@
            password           密码 
             还可以使用以下格式添加数据库的其他连接属性
            <property name="" value=""/>  -->
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.16.135.22:5029/multivr_pc" userId="root" password="yang1290">
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.14.131.25:3306/multivr" userId="root" password="tiantianxiangshang">
     	<property name="useUnicode" value="true"/>
     	<property name="characterEncoding" value="UTF-8"/>
     	<property name="zeroDateTimeBehavior" value="convertToNull"/>
@@ -46,7 +46,7 @@
            targetProject        生成的Java Bean放置在哪个项目的哪个目录下 
            targetPackage        生成的Java Bean的包名  
      -->
-    <javaModelGenerator targetPackage="com.bupt.app.multivrPC.model" targetProject="multivr_front/src/main/java/">
+    <javaModelGenerator targetPackage="com.bupt.app.multivrWAP.model" targetProject="DataAnalyzePlatform/src/main/java/">
     	<!-- 是否在包名后加上scheme名称 -->
         <property name="enableSubPackages" value="true" />
         <!-- 从数据库返回的值被清理前后的空格 -->
@@ -56,19 +56,18 @@
            targetProject        生成的 SqlMap.xml 文件放置在哪个项目的哪个目录下 
            targetPackage        生成的 SqlMap.xml 文件的包名 
       --> 
-    <sqlMapGenerator targetPackage="com.bupt.app.multivrPC.dao" targetProject="multivr_front/src/main/java/">
+    <sqlMapGenerator targetPackage="com.bupt.app.multivrWAP.dao" targetProject="DataAnalyzePlatform/src/main/java/">
    		 <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
     <!-- type 生成dao文件的类型，可选择IBATIS、SPRING、GENERIC-CI、GENERIC-SI。默认使用GENERIC-CI  -->
-    <javaClientGenerator targetPackage="com.bupt.app.multivrPC.dao" targetProject="multivr_front/src/main/java/" type="XMLMAPPER">
+    <javaClientGenerator targetPackage="com.bupt.app.multivrWAP.dao" targetProject="DataAnalyzePlatform/src/main/java/" type="XMLMAPPER">
     	<property name="enableSubPackages" value="true" />
     </javaClientGenerator>
      <!-- 
            tableName 数据库表明，据说可以包含SQL通配符%和_。 
            domainObjectName 数据库表对应的数据对象名称，默认使用表名作为对象名称。 
      -->
-     <table tableName="tb_detail_20130808" domainObjectName="WordPC"></table>
-     
+     <table tableName="tb_detail_20130921" domainObjectName="WordWAP"></table>
      
 
      <!--
