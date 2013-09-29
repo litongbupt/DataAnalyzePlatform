@@ -38,13 +38,16 @@ public class MultivrPCVRTypeUtils {
 		
 		if(map==null){
 			map = new HashMap<String,String>();
-			map.put("100601", "100601");
-			map.put("100602", "100602");
-			map.put("100603", "100603");
-			map.put("209602", "209602");
+			//map.put("100601", "100601");
+			//map.put("100602", "100602");
+			//map.put("100603", "100603");
+			//map.put("209602", "209602");
+			//map.put("20009604", "酷讯机票国内城市到城市带flash");
 			map.put("90000010_1", "翻译长句");
 			map.put("90000010_2", "翻译词典");
-			map.put("20009604", "酷讯机票国内城市到城市带flash");
+			//map.put("40001701", "无线-人物互动");
+			map.put("20121302", "医院聚合");
+			map.put("1111111", "specialbaike");
 			Connection conn = null;
 			Statement st = null;
 			ResultSet rs = null;
@@ -56,15 +59,15 @@ public class MultivrPCVRTypeUtils {
 				st = conn.createStatement();
 
 				// 4.执行语句
-				//rs = st.executeQuery("SELECT DISTINCT vr_type,vr_id,res_name FROM vr_resource");
+				rs = st.executeQuery("SELECT DISTINCT vr_type,vr_id,res_name FROM vr_resource");
 				//测试 TODO
-				rs = st.executeQuery("SELECT distinct(type) FROM tb_detail_20130808");
+				//rs = st.executeQuery("SELECT distinct(type) FROM tb_detail_20130808");
 				
 				// 5.处理结果
 				while (rs.next()) {
 					//测试 TODO 
-					map.put(rs.getString(1),rs.getString(1));
-					//map.put(rs.getString(2),rs.getString(3));
+					//map.put(rs.getString(1),rs.getString(1));
+					map.put(rs.getString(2),rs.getString(3));
 					// 参数中的1,2,3是指sql中的列索引
 				}
 			} catch (SQLException e) {
