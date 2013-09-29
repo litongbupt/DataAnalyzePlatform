@@ -17,7 +17,7 @@
 		<parameter name="day" db-name="day" show-name="日期" show="true" type="string" width="4000" selected="true"></parameter>
 	</resou-info>
 	<!-- PC多VR：统计查询 -->
-	<resou-info name="MULTIVR_PC_STATISTICSPC" model="" table="tb_detail_">
+	<resou-info name="MULTIVR_PC_STATISTICS" model="" table="tb_detail_">
 		<parameter name="title" db-name="title" show-name="标志" show="false" type="string" ></parameter>
 		<parameter name="vrID" db-name="vrID" show-name="vrID" show="true" type="string"  width="5000" selected="true"></parameter>
 		<parameter name="type" db-name="type" show-name="type" show="true" type="string"  width="5000" selected="true"></parameter>
@@ -30,5 +30,36 @@
 		<parameter name="hour" db-name="hour" show-name="小时" show="true" type="string" width="4000" selected="true"></parameter>
 		<parameter name="jhid" db-name="jhid" show-name="聚合id" show="true" type="string" width="4000" selected="true"></parameter>
 		<parameter name="day" db-name="day" show-name="日期" show="true" type="string" width="4000" selected="true"></parameter>
+	</resou-info>
+	<!-- WAP多VR：词表查询 -->
+	<resou-info name="MULTIVR_WAP_WORD" model="" table="tb_detail_">
+		<parameter name="id" db-name="id" show-name="标志" show="false" type="string" ></parameter>
+		<parameter name="keyword" db-name="keyword" show-name="查询词" show="true" type="string"  width="4000" selected="true"></parameter>
+		<parameter name="vrid" db-name="vrid" show-name="vrid" show="true" type="string"  width="5000" selected="true"></parameter>
+		<parameter name="type" db-name="type" show-name="type" show="true" type="string"  width="5000" selected="true"></parameter>
+		<parameter name="pagetype" db-name="pagetype" show-name="pagetype" show="true" type="string" width="5000" selected="true"></parameter>
+		<parameter name="vrposav" db-name="vrposav" show-name="位置" show="true" type="string" width="5000" selected="true" modify="true"></parameter>
+		<parameter name="linkid" db-name="linkid" show-name="linkid" show="true" type="string"  width="4000" selected="true"></parameter>
+		<parameter name="pvnum" db-name="pvnum" show-name="展示量" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
+		<parameter name="endclicknum" db-name="endclicknum" show-name="最终点击" show="true" type="string"  width="5000" selected="true"></parameter>
+		<parameter name="clicknum" db-name="clicknum" show-name="点击量" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="hour" db-name="hour" show-name="小时" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="jhid" db-name="jhid" show-name="聚合id" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="date" db-name="date" show-name="日期" show="true" type="string" width="4000" selected="true"></parameter>
+	</resou-info>
+	<!-- WAP多VR：统计查询 -->
+	<resou-info name="MULTIVR_WAP_STATISTICS" model="" table="tb_detail_">
+		<parameter name="id" db-name="id" show-name="标志" show="false" type="string" ></parameter>
+		<parameter name="vrid" db-name="vrid" show-name="vrid" show="true" type="string"  width="5000" selected="true"></parameter>
+		<parameter name="type" db-name="type" show-name="type" show="true" type="string"  width="5000" selected="true"></parameter>
+		<parameter name="pagetype" db-name="pagetype" show-name="pagetype" show="true" type="string" width="5000" selected="true"></parameter>
+		<parameter name="vrposav" db-name="vrposav" show-name="位置" show="true" type="string" width="5000" selected="true" modify="true"></parameter>
+		<parameter name="linkid" db-name="linkid" show-name="linkid" show="true" type="string"  width="4000" selected="true"></parameter>
+		<parameter name="pvnum" db-name="pvnum" show-name="展示量" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
+		<parameter name="endclicknum" db-name="endclicknum" show-name="最终点击" show="true" type="string"  width="5000" selected="true"></parameter>
+		<parameter name="clicknum" db-name="clicknum" show-name="点击量" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="hour" db-name="hour" show-name="小时" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="jhid" db-name="jhid" show-name="聚合id" show="true" type="string" width="4000" selected="true"></parameter>
+		<parameter name="date" db-name="date" show-name="日期" show="true" type="string" width="4000" selected="true"></parameter>
 	</resou-info>
 </resou-infos>

@@ -29,12 +29,7 @@ public interface WordWAPService extends BaseService<WordWAP, WordWAPDTO>{
 	 */
 	public List<Integer> getPositionList();
 
-	/**
-	 * 获取Abtest列表
-	 * @return
-	 * @author 李彤 2013-8-27 下午11:43:45
-	 */
-	public List<Integer> getAbtestList();
+
 
 	/**
 	 * 验证上传文件的正确性
@@ -46,6 +41,8 @@ public interface WordWAPService extends BaseService<WordWAP, WordWAPDTO>{
 	public String validateExcel(InputStream is, String sessionId);
 
 	public Map<String, String> getJhidMap();
+
+	public Map<String, String> getPageTypeMap();
 	
 	
 }

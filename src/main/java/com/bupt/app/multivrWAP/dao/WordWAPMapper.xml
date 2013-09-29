@@ -101,7 +101,7 @@
     </if>
     group by vrposAV, linkid, vrid, keyword,pageType
     <if test="orderByClause != null" >
-      order by ${orderByClause}, pv desc
+      order by ${orderByClause}, pvnum desc
     </if>
     <if test="start != null">
       <if test="limit != null">

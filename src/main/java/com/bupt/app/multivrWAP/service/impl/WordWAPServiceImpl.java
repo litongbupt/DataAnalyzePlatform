@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,12 +18,12 @@ import java.util.TreeMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
+import com.bupt.app.multivrPC.utils.MultivrPCVRTypeUtils;
 import com.bupt.app.multivrWAP.dao.WordWAPMapper;
 import com.bupt.app.multivrWAP.dto.WordWAPDTO;
 import com.bupt.app.multivrWAP.model.WordWAP;
@@ -43,11 +44,14 @@ public class WordWAPServiceImpl implements WordWAPService {
 	private final Log log = LogFactory.getLog(getClass());
 	private boolean debug = log.isDebugEnabled();
 	private static Map<String, List<String>> importWords = new HashMap<String,List<String>>();
+	Map<String, String> vrMap;
 	
-	//@Resource(name="wordWAPMapper")
+	@Resource(name="wordWAPMapper")
 	private WordWAPMapper wordWAPMapper;
 	
 	private Map<Integer,Integer> totalRecordMap = new TreeMap<Integer,Integer>();
+	
+	
 
 	@Override
 	public int getTotalRecords(HttpServletRequest request, Boolean search) {
@@ -191,7 +195,17 @@ public class WordWAPServiceImpl implements WordWAPService {
 	
 	private Collection<? extends WordWAPDTO> selectByWAPExample(
 			WordWAPExample wordWAPExample,String timelevel) {
-		Map<String, String> vrMap = MultivrWAPVRTypeUtils.getVRType();
+		if(vrMap==null){
+			vrMap = MultivrPCVRTypeUtils.getVRType();
+			vrMap.putAll(MultivrWAPVRTypeUtils.getVRType());
+			vrMap.put("JH001", "交通聚合");
+			vrMap.put("JH002", "人物聚合");
+			vrMap.put("JH003", "彩票聚合");
+			vrMap.put("JH004", "小说聚合");
+			vrMap.put("JH005", "导航聚合");
+			vrMap.put("JH006", "电视剧聚合");
+			vrMap.put("JH007", "旅游聚合");
+		}
 		List<WordWAPDTO> wordDTOList = new ArrayList<WordWAPDTO>();
 		List<WordWAP> wordWAPs = null;
 		if(timelevel.equals("hour")){
@@ -206,9 +220,19 @@ public class WordWAPServiceImpl implements WordWAPService {
 			//VR类型转换
 			wordWAPDTO.setVrid(wordWAP.getVrid());
 			if(vrMap.containsKey(wordWAP.getVrid())){
-				wordWAPDTO.setVrid(vrMap.get(wordWAP.getVrid()));
+				wordWAPDTO.setType(vrMap.get(wordWAP.getVrid()));
 			}
-			wordWAPDTO.setConsumption(wordWAPDTO.getEndclicknum()*100/wordWAPDTO.getPvnum()+"%");
+			try {
+				wordWAPDTO.setKeyword(URLDecoder.decode(wordWAPDTO.getKeyword(),"utf8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			if(wordWAPDTO.getPvnum()!=0){
+				wordWAPDTO.setConsumption(wordWAPDTO.getEndclicknum()*100/wordWAPDTO.getPvnum()+"%");
+			}else{
+				wordWAPDTO.setConsumption("-");
+			}
+			wordWAPDTO.setDate(wordWAPExample.getDate());
 			wordDTOList.add(wordWAPDTO);
 		}
 		return wordDTOList;
@@ -229,8 +253,9 @@ public class WordWAPServiceImpl implements WordWAPService {
 			if(vrid==null||vrid.length==0) vrid = request.getParameterValues("vrid");
 			String[] jhid = request.getParameterValues("jhid[]");
 			if(jhid==null||jhid.length==0) jhid = request.getParameterValues("jhid");
+			String[] pagetype = request.getParameterValues("pagetype[]");
+			if(pagetype==null||pagetype.length==0) pagetype = request.getParameterValues("pagetype");
 			String vrposav = request.getParameter("vrposav");
-			String pagetype = request.getParameter("pagetype");
 			String linkid = request.getParameter("linkid");
 			if(debug){
 				log.debug("jhid"+Arrays.toString(jhid)+"vrid:"+Arrays.toString(vrid)+"vrposav:"+vrposav+"pagetype:"+pagetype+"linkid: "+linkid);
@@ -238,8 +263,14 @@ public class WordWAPServiceImpl implements WordWAPService {
 			Criteria criteria = wordWAPExample.createCriteria();
 			if(vrid!=null&&vrid.length>0&&!vrid[0].equalsIgnoreCase("null")) criteria.andVridIn(Arrays.asList(vrid));
 			if(jhid!=null&&jhid.length>0&&!jhid[0].equalsIgnoreCase("null")) criteria.andJhidIn(Arrays.asList(jhid));
+			if(pagetype!=null&&pagetype.length>0&&!pagetype[0].equalsIgnoreCase("null")){
+				Byte[] pagetypeByte = new Byte[pagetype.length];
+				for (int i = 0; i < pagetype.length; i++) {
+					pagetypeByte[i]=Byte.parseByte(pagetype[i]);
+				}
+				criteria.andPagetypeIn(Arrays.asList(pagetypeByte));
+			}
 			if(!StringUtils.isEmpty(vrposav)) criteria.andVrposavEqualTo(Float.parseFloat(vrposav));
-			if(!StringUtils.isEmpty(pagetype)) criteria.andPagetypeEqualTo(Byte.parseByte(pagetype));
 			if(!StringUtils.isEmpty(linkid)) criteria.andLinkidEqualTo(Byte.parseByte(linkid));
 			if(startHour!=null&&endHour!=null) criteria.andHourBetween(startHour, endHour);
 			String wordsKey = request.getSession().getId()+"_WAPWORD";
@@ -259,8 +290,18 @@ public class WordWAPServiceImpl implements WordWAPService {
 	
 	@Override
 	public Map<String,String> getTypeMap() {
-		Map<String,String> map = MultivrWAPVRTypeUtils.getVRType();
-		return map;
+		if(vrMap==null){
+			vrMap = MultivrPCVRTypeUtils.getVRType();
+			vrMap.putAll(MultivrWAPVRTypeUtils.getVRType());
+			vrMap.put("JH001", "交通聚合");
+			vrMap.put("JH002", "人物聚合");
+			vrMap.put("JH003", "彩票聚合");
+			vrMap.put("JH004", "小说聚合");
+			vrMap.put("JH005", "导航聚合");
+			vrMap.put("JH006", "电视剧聚合");
+			vrMap.put("JH007", "旅游聚合");
+		}
+		return vrMap;
 	}
 
 	@Override
@@ -269,8 +310,26 @@ public class WordWAPServiceImpl implements WordWAPService {
 	}
 
 	@Override
-	public List<Integer> getAbtestList() {
-		return Arrays.asList(new Integer[]{0,1,2,3,4,5,6,7});
+	public Map<String, String> getPageTypeMap() {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("1", "简版");
+		map.put("2", "炫版");
+		map.put("4", "触版");
+		map.put("0", "移动版");
+		return map;
+	}
+
+	@Override
+	public Map<String, String> getJhidMap() {
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("JH001", "交通聚合");
+		map.put("JH002", "人物聚合");
+		map.put("JH003", "彩票聚合");
+		map.put("JH004", "小说聚合");
+		map.put("JH005", "导航聚合");
+		map.put("JH006", "电视剧聚合");
+		map.put("JH007", "旅游聚合");
+		return map;
 	}
 
 
@@ -305,14 +364,5 @@ public class WordWAPServiceImpl implements WordWAPService {
 	public void setWordWAPMapper(WordWAPMapper wordWAPMapper) {
 		this.wordWAPMapper = wordWAPMapper;
 	}
-
-
-	@Override
-	public Map<String, String> getJhidMap() {
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("1001", "人物聚合");
-		return map;
-	}
-
 
 }

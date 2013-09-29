@@ -19,7 +19,7 @@
             </dd>
             <dt><div class="icon7">WAP多VR</div></dt>
             <dd>
-                <a  href="javascript:void(0)"  onClick="Menu('<%=modulesPath %>core/indexContent.jsp');">词表查询</a>
+                <a  href="javascript:void(0)"  onClick="Menu('<%=modulesPath %>wap_word/multivr_wap_word_main.jsp');">词表查询</a>
                 <a  href="javascript:void(0)"  onClick="Menu('<%=modulesPath %>core/indexContent.jsp');">统计信息</a>
             </dd>
             <!-- 

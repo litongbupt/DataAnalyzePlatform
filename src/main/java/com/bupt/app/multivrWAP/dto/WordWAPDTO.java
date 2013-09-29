@@ -9,8 +9,10 @@ public class WordWAPDTO {
     private Byte pagetype;
 
     private String vrid;
+    
+    private String type;
 
-    private Byte linkid;
+	private Byte linkid;
 
     private Float vrposav;
 
@@ -28,6 +30,14 @@ public class WordWAPDTO {
     
     private String consumption;
 
+    public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+    
     public Integer getId() {
         return id;
     }

@@ -72,7 +72,7 @@ public class StatisticsPCAction extends JqGridBaseAction<StatisticsPCDTO>{
         throws IOException, ServletException {
 		//读取导出字段默认属性
 		List<SelectOptionDTO> columns = new ArrayList<SelectOptionDTO>();
-		Map<String, ParameterDTO> paramMap = ExportParameter.getExportInfos().get("MULTIVR_PC_STATISTICSPC").getParams();
+		Map<String, ParameterDTO> paramMap = ExportParameter.getExportInfos().get("MULTIVR_PC_STATISTICS").getParams();
 		for(String p : paramMap.keySet()){
 			ParameterDTO pd = paramMap.get(p);
 			if(pd.isShow()){
