@@ -209,7 +209,13 @@ public class WordPCServiceImpl implements WordPCService {
 			if(vrMap.containsKey(wordPC.getType())){
 				wordPCDTO.setType(vrMap.get(wordPC.getType()));
 			}
-			wordPCDTO.setConsumption(wordPCDTO.getEclpv()*100/wordPCDTO.getPv()+"%");
+			if(wordPCDTO.getPv()!=0){
+				wordPCDTO.setConsumption(wordPCDTO.getEclpv()*100/wordPCDTO.getPv()+"%");
+				wordPCDTO.setCtr(wordPCDTO.getClick()*100/wordPCDTO.getPv()+"%");
+			}else{
+				wordPCDTO.setConsumption("-");
+				wordPCDTO.setCtr("-");
+			}
 			wordDTOList.add(wordPCDTO);
 		}
 		return wordDTOList;

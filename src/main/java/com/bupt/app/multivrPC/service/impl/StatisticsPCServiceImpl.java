@@ -199,7 +199,13 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 			if(vrMap.containsKey(statisticsPC.getType())){
 				statisticsPCDTO.setType(vrMap.get(statisticsPC.getType()));
 			}
-			statisticsPCDTO.setConsumption(statisticsPCDTO.getEclpv()*100/statisticsPCDTO.getPv()+"%");
+			if(statisticsPCDTO.getPv()!=0){
+				statisticsPCDTO.setConsumption(statisticsPCDTO.getEclpv()*100/statisticsPCDTO.getPv()+"%");
+				statisticsPCDTO.setCtr(statisticsPCDTO.getClick()*100/statisticsPCDTO.getPv()+"%");
+			}else{
+				statisticsPCDTO.setConsumption("-");
+				statisticsPCDTO.setCtr("-");
+			}
 			wordDTOList.add(statisticsPCDTO);
 		}
 		return wordDTOList;

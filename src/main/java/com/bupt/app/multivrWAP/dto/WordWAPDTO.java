@@ -30,6 +30,8 @@ public class WordWAPDTO {
     
     private String consumption;
 
+	private String ctr;
+
     public String getType() {
 		return type;
 	}
@@ -164,4 +166,14 @@ public class WordWAPDTO {
 	public String getConsumption(){
 		return this.consumption;
 	}
+	
+
+	public String getCtr() {
+		return ctr;
+	}
+
+	public void setCtr(String ctr) {
+		this.ctr = ctr;
+	}
+
 }

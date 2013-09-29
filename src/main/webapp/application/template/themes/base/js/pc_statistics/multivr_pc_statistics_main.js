@@ -22,6 +22,7 @@ $(function(){
 	        {name:"clickid",index:"clickid",label : "clickid",width:30,sortable:true,align:"center"},
 	        {name:"pv",index:"pv",label : "展现量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
 	        {name:"click",index:"click",label : "点击量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
+	        {name:"ctr",index:"ctr",label : "CTR",width:30,sortable:false,align:"center",firstsortorder:"desc" },
 	        {name:"eclpv",index:"eclpv",label : "最终点击",width:30,sortable:true,align:"center",firstsortorder:"desc" },
 	        {name:"consumption",index:"consumption",label : "消费率",width:30,sortable:false,align:"center",firstsortorder:"desc" },
 	        {name:"day",index:"day",label : "日期",width:30,sortable:false,align:"center",firstsortorder:"desc" },

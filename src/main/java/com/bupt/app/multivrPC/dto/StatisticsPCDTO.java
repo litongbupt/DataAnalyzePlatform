@@ -37,6 +37,8 @@ public class StatisticsPCDTO {
 		//消费率
 		private String consumption;
 
+		private String ctr;
+
 		public Integer getAbtest() {
 			return abtest;
 		}
@@ -136,5 +138,11 @@ public class StatisticsPCDTO {
 			this.jhid = jhid;
 		}
 		
-		
+		public String getCtr() {
+			return ctr;
+		}
+
+		public void setCtr(String ctr) {
+			this.ctr = ctr;
+		}
 }

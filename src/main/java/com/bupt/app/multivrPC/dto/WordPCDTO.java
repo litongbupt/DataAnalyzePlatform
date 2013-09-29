@@ -35,6 +35,9 @@ public class WordPCDTO {
 
 	// 展现量
 	private Integer pv;
+	
+	//ctr
+	private String ctr;
 
 	// VRID
 	private String vrId;
@@ -158,6 +161,14 @@ public class WordPCDTO {
 
 	public void setJhid(String jhid) {
 		this.jhid = jhid;
+	}
+
+	public String getCtr() {
+		return ctr;
+	}
+
+	public void setCtr(String ctr) {
+		this.ctr = ctr;
 	}
 
 	

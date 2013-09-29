@@ -231,8 +231,10 @@ public class WordWAPServiceImpl implements WordWAPService {
 			}
 			if(wordWAPDTO.getPvnum()!=0){
 				wordWAPDTO.setConsumption(wordWAPDTO.getEndclicknum()*100/wordWAPDTO.getPvnum()+"%");
+				wordWAPDTO.setCtr(wordWAPDTO.getClicknum()*100/wordWAPDTO.getPvnum()+"%");
 			}else{
 				wordWAPDTO.setConsumption("-");
+				wordWAPDTO.setCtr("-");
 			}
 			wordWAPDTO.setDate(wordWAPExample.getDate());
 			wordDTOList.add(wordWAPDTO);
