@@ -6,8 +6,6 @@
 		<parameter name="keyword" db-name="keyword" show-name="查询词" show="true" type="string"  width="4000" selected="true"></parameter>
 		<parameter name="vrID" db-name="vrID" show-name="vrID" show="true" type="string"  width="5000" selected="true"></parameter>
 		<parameter name="type" db-name="type" show-name="type" show="true" type="string"  width="5000" selected="true"></parameter>
-		<parameter name="abtest" db-name="abtest" show-name="abtest" show="true" type="string" width="5000" selected="true"></parameter>
-		<parameter name="position" db-name="position" show-name="位置" show="true" type="string" width="5000" selected="true" modify="true"></parameter>
 		<parameter name="clickid" db-name="clickid" show-name="clickid" show="true" type="string"  width="4000" selected="true"></parameter>
 		<parameter name="pv" db-name="pv" show-name="展示量" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
 		<parameter name="eclpv" db-name="eclpv" show-name="最终点击" show="true" type="string"  width="5000" selected="true"></parameter>
@@ -21,7 +19,6 @@
 		<parameter name="title" db-name="title" show-name="标志" show="false" type="string" ></parameter>
 		<parameter name="vrID" db-name="vrID" show-name="vrID" show="true" type="string"  width="5000" selected="true"></parameter>
 		<parameter name="type" db-name="type" show-name="type" show="true" type="string"  width="5000" selected="true"></parameter>
-		<parameter name="abtest" db-name="abtest" show-name="abtest" show="true" type="string" width="5000" selected="true"></parameter>
 		<parameter name="position" db-name="position" show-name="位置" show="true" type="string" width="5000" selected="true" modify="true"></parameter>
 		<parameter name="clickid" db-name="clickid" show-name="clickid" show="true" type="string"  width="4000" selected="true"></parameter>
 		<parameter name="pv" db-name="pv" show-name="展示量" show="true" type="string"  width="5000" selected="true" modify="true"></parameter>
