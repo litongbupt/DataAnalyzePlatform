@@ -3,4 +3,5 @@ encoding//.settings/org.eclipse.core.resources.prefs=UTF-8
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/com/bupt/config/log4j.properties=UTF-8
+encoding//src/main/webapp/words.txt=GBK
 encoding//src/test/java=UTF-8

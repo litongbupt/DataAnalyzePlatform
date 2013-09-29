@@ -57,7 +57,7 @@
             </label>
             <label>查询词:<input type="text" size="8" id="query_keyword" name="keyword"/>
              </label>
-            <label>clickid:<input type="text" size="8" id="query_clickid" name="clickid"/>
+            <label>clickid:<input type="text" size="8" id="query_clickid" name="clickid"  value="all"/>
             </label>
                 <input id="export_selectCols" name="selectCols" type="hidden" />
 		       	<input id="export_maxRecords" name="maxRecords" type="hidden" />

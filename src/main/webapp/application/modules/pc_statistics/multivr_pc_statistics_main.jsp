@@ -55,7 +55,7 @@
          	    	<option value="day" selected="selected">天</option>
          	    </select>
             </label>
-            <label>clickid:<input type="text" size="8" id="query_clickid" name="clickid"/></label>
+            <label>clickid:<input type="text" size="8" id="query_clickid" name="clickid" value="all"/></label>
                 <input id="export_selectCols" name="selectCols" type="hidden" />
 		       	<input id="export_maxRecords" name="maxRecords" type="hidden" />
 		       	<input id="export_sortname" name="sortName" type="hidden" />

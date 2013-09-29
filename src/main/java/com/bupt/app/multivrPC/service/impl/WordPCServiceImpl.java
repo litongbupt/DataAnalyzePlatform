@@ -191,6 +191,7 @@ public class WordPCServiceImpl implements WordPCService {
 	
 	private Collection<? extends WordPCDTO> selectByPCExample(
 			WordPCExample wordPCExample,String timelevel) {
+		importWords.clear();
 		Map<String, String> vrMap = MultivrPCVRTypeUtils.getVRType();
 		List<WordPCDTO> wordDTOList = new ArrayList<WordPCDTO>();
 		List<WordPC> wordPCs = null;

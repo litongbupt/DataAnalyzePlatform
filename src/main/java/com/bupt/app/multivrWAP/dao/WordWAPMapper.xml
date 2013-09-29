@@ -61,12 +61,12 @@
   </sql>
 
 	<sql id="Base_Column_List">
-		id, keyword, pageType, vrid, linkid, vrposAV, pvnum, clicknum,
+		id, keyword, pageType, vrid, linkid, avg(vrposAV), pvnum, clicknum,
 		endclicknum, hour, jhid, date
 	</sql>
   
   	<sql id="Day_Column_List">
-		keyword, pageType, vrid, linkid, vrposAV, sum(pvnum) as pvnum, sum(clicknum) as clicknum , sum(endclicknum), jhid, date
+		keyword, pageType, vrid, linkid, avg(vrposAV), sum(pvnum) as pvnum, sum(clicknum) as clicknum , sum(endclicknum), jhid, date
 	</sql>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bupt.app.multivrWAP.model.WordWAPExample" >
@@ -79,6 +79,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+    group by  linkid, vrid, keyword, pageType, hour
     <if test="orderByClause != null" >
       order by ${orderByClause}, pvnum desc
     </if>
@@ -99,7 +100,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by vrposAV, linkid, vrid, keyword,pageType
+    group by  linkid, vrid, keyword,pageType
     <if test="orderByClause != null" >
       order by ${orderByClause}, pvnum desc
     </if>
@@ -116,6 +117,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+    group by  linkid, vrid, keyword, pageType, hour
   </select>
   
   <select id="countDayByExample" parameterType="com.bupt.app.multivrWAP.model.WordWAPExample" resultType="java.lang.Integer" >
@@ -123,6 +125,6 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by vrposAV, linkid, vrid, keyword, pageType) as t1
+    group by  linkid, vrid, keyword, pageType) as t1
   </select>
 </mapper>

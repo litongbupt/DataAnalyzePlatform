@@ -238,7 +238,7 @@ function importExcel(){
 		alertJQ("请先校验文件，校验通过后才能导入!","","350");
 	}else if(validateResult == "success"){
 		$("#importDialog").dialog("close");
-		query();
+		//query();
 	}
 }
 

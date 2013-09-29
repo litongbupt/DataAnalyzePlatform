@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -195,6 +196,7 @@ public class WordWAPServiceImpl implements WordWAPService {
 	
 	private Collection<? extends WordWAPDTO> selectByWAPExample(
 			WordWAPExample wordWAPExample,String timelevel) {
+		importWords.clear();
 		if(vrMap==null){
 			vrMap = MultivrPCVRTypeUtils.getVRType();
 			vrMap.putAll(MultivrWAPVRTypeUtils.getVRType());
@@ -255,7 +257,9 @@ public class WordWAPServiceImpl implements WordWAPService {
 			if(jhid==null||jhid.length==0) jhid = request.getParameterValues("jhid");
 			String[] pagetype = request.getParameterValues("pagetype[]");
 			if(pagetype==null||pagetype.length==0) pagetype = request.getParameterValues("pagetype");
-			String vrposav = request.getParameter("vrposav");
+			String[] vrposav = request.getParameterValues("vrposav[]");
+			if(vrposav==null||vrposav.length==0) vrposav = request.getParameterValues("vrposav");
+			
 			String linkid = request.getParameter("linkid");
 			if(debug){
 				log.debug("jhid"+Arrays.toString(jhid)+"vrid:"+Arrays.toString(vrid)+"vrposav:"+vrposav+"pagetype:"+pagetype+"linkid: "+linkid);
@@ -270,7 +274,13 @@ public class WordWAPServiceImpl implements WordWAPService {
 				}
 				criteria.andPagetypeIn(Arrays.asList(pagetypeByte));
 			}
-			if(!StringUtils.isEmpty(vrposav)) criteria.andVrposavEqualTo(Float.parseFloat(vrposav));
+			if(vrposav!=null&&vrposav.length>0&&!vrposav[0].equalsIgnoreCase("null")){
+				Float[] vrposavByte = new Float[vrposav.length];
+				for (int i = 0; i < vrposav.length; i++) {
+					vrposavByte[i]=Float.parseFloat(vrposav[i]);
+				}
+				criteria.andVrposavIn(Arrays.asList(vrposavByte));
+			}
 			if(!StringUtils.isEmpty(linkid)) criteria.andLinkidEqualTo(Byte.parseByte(linkid));
 			if(startHour!=null&&endHour!=null) criteria.andHourBetween(startHour, endHour);
 			String wordsKey = request.getSession().getId()+"_WAPWORD";
@@ -282,8 +292,12 @@ public class WordWAPServiceImpl implements WordWAPService {
 					log.debug("wordsList:"+wordsList);
 				}
 			}else{
-				if(!StringUtils.isEmpty(keyword)) 
-					criteria.andKeywordLike(keyword);
+				if(!StringUtils.isEmpty(keyword))
+					try {
+						criteria.andKeywordLike(URLEncoder.encode(keyword,"utf-8"));
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+					}
 			}
 	}
 	
@@ -347,12 +361,17 @@ public class WordWAPServiceImpl implements WordWAPService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			wordList.add(word);
+			try {
+				wordList.add(URLEncoder.encode(word,"utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 		if(debug){
 			log.debug("key:"+sessionId + "_WAPWORD");
 			log.debug("wordList:"+wordList);
 		}
+		
 		importWords.put(sessionId + "_WAPWORD" , wordList);
 		return ServiceReturnResult.SERVICE_OP_SUCC;
 	}

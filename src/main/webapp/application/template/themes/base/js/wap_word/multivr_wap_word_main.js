@@ -94,6 +94,9 @@ $(function(){
 		$("#query_pagetype").select2({
 			placeholder: "-请选择-"
 		});
+		$("#query_vrposav").select2({
+			placeholder: "-请选择-"
+		});
   	});
   	
   	
@@ -215,7 +218,7 @@ function importExcel(){
 		alertJQ("请先校验文件，校验通过后才能导入!","","350");
 	}else if(validateResult == "success"){
 		$("#importDialog").dialog("close");
-		query();
+		//query();
 	}
 }
 
@@ -225,7 +228,7 @@ function query() {
 		startTime : $("#query_startTime").val().trim(),
 		endTime : $("#query_endTime").val().trim(),
 		vrid: $("#query_vrid").val(),
-		vrposav : $("#query_vrposav").val().trim(),
+		vrposav : $("#query_vrposav").val(),
 		pagetype : $("#query_pagetype").val(),
 		keyword : $("#query_keyword").val().trim(),
 		linkid : $("#query_linkid").val().trim(),

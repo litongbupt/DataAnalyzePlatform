@@ -25,22 +25,14 @@ public class MultivrWAPVRTypeUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		String driver = prop.getProperty("pcVrTypeDriver");
-		String url = prop.getProperty("pcVrTypeUrl");
-		String user = prop.getProperty("pcVrTypeUser");
-		String password = prop.getProperty("pcVrTypePassword");
+
+		String driver = prop.getProperty("wapVrTypeDriver");
+		String url = prop.getProperty("wapVrTypeUrl");
+		String user = prop.getProperty("wapVrTypeUser");
+		String password = prop.getProperty("wapVrTypePassword");
 		
 		if(map==null){
 			map = new HashMap<String,String>();
-			//map.put("100601", "100601");
-			//map.put("100602", "100602");
-			//map.put("100603", "100603");
-			//map.put("209602", "209602");
-			//map.put("20009604", "酷讯机票国内城市到城市带flash");
-			map.put("90000010_1", "翻译长句");
-			map.put("90000010_2", "翻译词典");
-			//map.put("40001701", "无线-人物互动");
-			map.put("20121302", "医院聚合");
 			Connection conn = null;
 			Statement st = null;
 			ResultSet rs = null;
@@ -52,14 +44,10 @@ public class MultivrWAPVRTypeUtils {
 				st = conn.createStatement();
 
 				// 4.执行语句
-				rs = st.executeQuery("SELECT DISTINCT vr_type,vr_id,res_name FROM vr_resource");
-				//测试 TODO
-				//rs = st.executeQuery("SELECT distinct(type) FROM tb_detail_20130808");
+				rs = st.executeQuery("select VRTYPE, VRID, VRNAME from ubs_web_vrinfo order by VRID");
 				
 				// 5.处理结果
 				while (rs.next()) {
-					//测试 TODO 
-					//map.put(rs.getString(1),rs.getString(1));
 					map.put(rs.getString(2),rs.getString(3));
 					// 参数中的1,2,3是指sql中的列索引
 				}
