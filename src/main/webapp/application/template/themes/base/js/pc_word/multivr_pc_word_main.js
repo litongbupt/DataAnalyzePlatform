@@ -20,7 +20,7 @@ $(function(){
 	      	{name:"vrId",index:"type",label : "VRID",width:30,sortable:true,align:"center"},
 	        {name:"type",index:"type",label : "类&nbsp;型",width:50,sortable:false,align:"center"},
 	        {name:"position",index:"position",label : "位&nbsp;置",width:20,sortable:true,align:"center"},
-	        {name:"abtest",index:"abtest",label : "abtest",width:20,sortable:true,align:"center"},
+	        //{name:"abtest",index:"abtest",label : "abtest",width:20,sortable:true,align:"center"},
 	        {name:"clickid",index:"clickid",label : "clickid",width:30,sortable:true,align:"center"},
 	        {name:"pv",index:"pv",label : "展现量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
 	        {name:"click",index:"click",label : "点击量",width:30,sortable:true,align:"center",firstsortorder:"desc" },
@@ -89,6 +89,12 @@ $(function(){
 			placeholder: "-请选择-"
 		});
 		$("#query_jhid").select2({
+			placeholder: "-请选择-"
+		});
+		$("#query_abtest").select2({
+			placeholder: "-请选择-"
+		});
+		$("#query_position").select2({
 			placeholder: "-请选择-"
 		});
   	});
@@ -244,8 +250,8 @@ function query() {
 		startTime : $("#query_startTime").val().trim(),
 		endTime : $("#query_endTime").val().trim(),
 		type: $("#query_type").val(),
-		position : $("#query_position").val().trim(),
-		abtest : $("#query_abtest").val().trim(),
+		position : $("#query_position").val(),
+		abtest : $("#query_abtest").val(),
 		keyword : $("#query_keyword").val().trim(),
 		clickid : $("#query_clickid").val().trim(),
 		timelevel:$("#query_timelevel").val().trim(),

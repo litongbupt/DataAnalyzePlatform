@@ -100,9 +100,6 @@ public class WordPCAction extends JqGridBaseAction<WordPCDTO>{
 			tempSelectOptionDto = new SelectOptionDTO();
 			tempSelectOptionDto.setName(abtest.toString());
 			tempSelectOptionDto.setValue(abtest.toString());
-			if(abtest==0){
-				tempSelectOptionDto.setSelected(true);
-			}
 			abtestSelectOptionList.add(tempSelectOptionDto);
 		}
 		

@@ -259,8 +259,10 @@ public class WordPCServiceImpl implements WordPCService {
 			if(type==null||type.length==0) type = request.getParameterValues("type");
 			String[] jhid = request.getParameterValues("jhid[]");
 			if(jhid==null||jhid.length==0) jhid = request.getParameterValues("jhid");
-			String position = request.getParameter("position");
-			String abtest = request.getParameter("abtest");
+			String[] position = request.getParameterValues("position");
+			if(position==null||position.length==0) position = request.getParameterValues("position[]");
+			String[] abtest = request.getParameterValues("abtest");
+			if(abtest==null||abtest.length==0) abtest = request.getParameterValues("abtest[]");
 			String clickid = request.getParameter("clickid");
 			if(debug){
 				log.debug("jhid"+Arrays.toString(jhid)+"type:"+Arrays.toString(type)+"position:"+position+"abtest:"+abtest+"clickid: "+clickid);
@@ -268,8 +270,21 @@ public class WordPCServiceImpl implements WordPCService {
 			Criteria criteria = wordPCExample.createCriteria();
 			if(type!=null&&type.length>0&&!type[0].equalsIgnoreCase("null")) criteria.andTypeIn(Arrays.asList(type));
 			if(jhid!=null&&jhid.length>0&&!jhid[0].equalsIgnoreCase("null")) criteria.andJhidIn(Arrays.asList(jhid));
-			if(!StringUtils.isEmpty(position)) criteria.andPositionEqualTo(Integer.parseInt(position));
-			if(!StringUtils.isEmpty(abtest)) criteria.andAbtestEqualTo(Integer.parseInt(abtest));
+			if(position!=null&&position.length>0&&!position[0].equalsIgnoreCase("null")) {
+				Integer[] tposition = new Integer[position.length];
+				for (int i = 0; i < position.length; i++) {
+					tposition[i]=Integer.parseInt(position[i]);
+				}
+				criteria.andPositionIn(Arrays.asList(tposition));
+			}
+			if(abtest!=null&&abtest.length>0&&!abtest[0].equalsIgnoreCase("null")) {
+				Integer[] tabtest = new Integer[abtest.length];
+				for (int i = 0; i < abtest.length; i++) {
+					tabtest[i]=Integer.parseInt(abtest[i]);
+				}
+				criteria.andPositionIn(Arrays.asList(tabtest));
+			}
+			
 			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);
 			if(startHour!=null&&endHour!=null) criteria.andHourBetween(startHour, endHour);
 			String wordsKey = request.getSession().getId()+"_PCWORD";

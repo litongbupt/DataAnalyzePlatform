@@ -44,6 +44,9 @@ public class WordPCDTO {
 	
 	//日期
 	private String day;
+	
+	//聚合id
+	private String jhid;
 
 	public String getTitle() {
 		return title;
@@ -149,6 +152,14 @@ public class WordPCDTO {
 		this.day = day;
 	}
 
+	public String getJhid() {
+		return jhid;
+	}
 
+	public void setJhid(String jhid) {
+		this.jhid = jhid;
+	}
+
+	
 
 }

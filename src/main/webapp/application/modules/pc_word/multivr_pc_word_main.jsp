@@ -40,12 +40,13 @@
          	    </select>
          	</label>
             <label>位置 :
-                <select id="query_position" name="position" size="1">
-             	  <option value=''>--请选择--</option>
+                <select id="query_position" name="position" size="15" multiple="multiple" style="width: 160px">
+            		<option></option>
          	    </select>
          	</label>
             <label>abtest:	
-            	<select id="query_abtest" name="abtest" size="1">
+            	<select id="query_abtest" name="abtest" size="15" multiple="multiple" style="width: 160px">
+            		<option></option>
          	    </select>
             </label>
             <label>时间级别:	

@@ -45,8 +45,8 @@
          	    </select>
             </label>
             <label>位置 :
-                <select id="query_vrposav" name="vrposav" size="1">
-             	  <option value=''>--请选择--</option>
+                <select id="query_vrposav" name="vrposav" size="15" multiple="multiple" style="width: 160px">
+            	<option></option>
          	    </select>
          	</label>
             <label>时间级别:	

@@ -61,12 +61,12 @@
   </sql>
 
 	<sql id="Base_Column_List">
-		title,keyword, abtest,type, clickid, position, pv, eclpv,
+		title,keyword, type, clickid, avg(position) as position, pv, eclpv,
 		click, hour, jhid, day
 	</sql>
     
   <sql id="Day_Column_List" >
-    keyword, abtest, type, clickid, position, sum(eclpv) as eclpv, sum(click) as click, sum(pv) as pv,jhid,day
+    keyword,  type, clickid, avg(position) as position,  sum(eclpv) as eclpv, sum(click) as click, sum(pv) as pv,jhid,day
   </sql>
   
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bupt.app.multivrPC.model.WordPCExample" >
@@ -79,6 +79,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+    group by clickid, type, keyword,hour,jhid
     <if test="orderByClause != null" >
       order by ${orderByClause}, pv desc
     </if>
@@ -99,7 +100,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by position, clickid, type, keyword,abtest
+    group by clickid, type, keyword,jhid
     <if test="orderByClause != null" >
       order by ${orderByClause}, pv desc
     </if>
@@ -116,14 +117,15 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
+    group by clickid, type, keyword,hour,jhid
   </select>
   
   <select id="countDayByExample" parameterType="com.bupt.app.multivrPC.model.WordPCExample" resultType="java.lang.Integer" >
-    select count(*) from (select abtest from tb_detail_${date}  
+    select count(*) from (select type from tb_detail_${date}  
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by position, clickid,type, keyword, abtest) as t1
+    group by clickid,type, keyword,jhid) as t1
   </select>
 
 </mapper>
