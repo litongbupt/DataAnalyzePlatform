@@ -289,10 +289,10 @@ public class WordPCServiceImpl implements WordPCService {
 				for (int i = 0; i < abtest.length; i++) {
 					tabtest[i]=Integer.parseInt(abtest[i]);
 				}
-				criteria.andPositionIn(Arrays.asList(tabtest));
+				criteria.andAbtestIn(Arrays.asList(tabtest));
 			}
 			
-			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);
+			if(!StringUtils.isEmpty(clickid)) criteria.andClickidLike(clickid);
 			if(startHour!=null&&endHour!=null) criteria.andHourBetween(startHour, endHour);
 			String wordsKey = request.getSession().getId()+"_PCWORD";
 			if(importWords.containsKey(wordsKey)){//如果有上传的词表

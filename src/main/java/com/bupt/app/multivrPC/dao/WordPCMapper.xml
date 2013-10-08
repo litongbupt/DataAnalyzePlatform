@@ -113,11 +113,11 @@
 
 
   <select id="countByExample" parameterType="com.bupt.app.multivrPC.model.WordPCExample" resultType="java.lang.Integer" >
-    select count(*) from tb_detail_${date}
+    select count(*) from (select type from tb_detail_${date}
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by clickid, type, keyword,hour,jhid
+    group by clickid, type, keyword,hour,jhid) as t1;
   </select>
   
   <select id="countDayByExample" parameterType="com.bupt.app.multivrPC.model.WordPCExample" resultType="java.lang.Integer" >

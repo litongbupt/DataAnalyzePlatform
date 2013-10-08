@@ -248,7 +248,7 @@ public class StatisticsPCServiceImpl implements StatisticsPCService {
 				}
 				criteria.andPositionIn(Arrays.asList(tabtest));
 			}
-			if(!StringUtils.isEmpty(clickid)) criteria.andClickidEqualTo(clickid);
+			if(!StringUtils.isEmpty(clickid)) criteria.andClickidLike(clickid);
 			if(startHour!=null&&endHour!=null) criteria.andHourBetween(startHour, endHour);
 	}
 	

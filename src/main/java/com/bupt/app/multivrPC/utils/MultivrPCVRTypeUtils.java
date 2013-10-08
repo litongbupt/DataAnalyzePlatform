@@ -48,6 +48,7 @@ public class MultivrPCVRTypeUtils {
 			//map.put("40001701", "无线-人物互动");
 			map.put("20121302", "医院聚合");
 			map.put("1111111", "specialbaike");
+			map.put("10001501", "著作");
 			Connection conn = null;
 			Statement st = null;
 			ResultSet rs = null;
