@@ -146,9 +146,9 @@ function initTime(){
 	var uom = new Date(); 
 	uom.setDate(uom.getDate()-1);//取得系统时间的前一天,重点在这里,负数是前几天,正数是后几天 
 	var LINT_MM=uom.getMonth()+1; 
-	var LSTR_MM=LINT_MM > 10?LINT_MM:("0"+LINT_MM) 
+	var LSTR_MM=LINT_MM >= 10?LINT_MM:("0"+LINT_MM) 
 	var LINT_DD=uom.getDate(); 
-	var LSTR_DD=LINT_DD > 10?LINT_DD:("0"+LINT_DD) 
+	var LSTR_DD=LINT_DD >= 10?LINT_DD:("0"+LINT_DD) 
 	//得到最终结果  
 	uom = uom.getFullYear() + "-" + LSTR_MM + "-" + LSTR_DD; 
 	$("#query_startTime").val(uom+ " 00:00:00");
