@@ -19,9 +19,9 @@ do
 	let "count=$count+1"
 	echo "has deleted "$count
 	echo "current errorline: "$errorline
-	output=$(echo ${errorline}p | xargs -I {} sed -n {} part-all)
+	output=$(echo ${errorline}p | xargs -I {} sed -n {} $path)
 	echo $output
-	echo ${errorline}d | xargs -I {} sed -in {} part-all
+	echo ${errorline}d | xargs -I {} sed -in {} $path 
 	echo "loading again"
-	errorline=$(./load.sh tb_detail_20130809 multivr_pc /search/infobright/part-all 2>&1 | grep -i "Wrong data or column definition." | cut -d ',' -f 1|cut -d ':' -f 3|sed 's/^ //;s/ $//')
+	errorline=$(sh load.sh tb_detail_$date $database $path 2>&1 | grep -i "Wrong data or column definition." | cut -d ',' -f 1|cut -d ':' -f 3|sed 's/^ //;s/ $//')
 done

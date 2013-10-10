@@ -1,2 +1,4 @@
 vrid:20006620	vrname:酷讯国内机票搜索框
 vrid:20009604	vrname:酷讯机票国内城市到城市带flash
+vrid:1111111	vrname:specialbaike
+vrid:10001501	vrname:works

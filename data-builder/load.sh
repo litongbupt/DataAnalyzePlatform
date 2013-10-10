@@ -32,9 +32,9 @@ echo Starting - date
 echo DROP TABLE IF EXISTS " $table "
 echo DROP TABLE IF EXISTS " $table "| $TGTMYSQL -D $TGTDB
 
-echo "CREATE TABLE  $table  (title varchar(1500) DEFAULT NULL, abtest int(10) DEFAULT 0,eclpv int(10) DEFAULT 0,click int(10) DEFAULT 0,position int(10) DEFAULT 0, clickid varchar(20) DEFAULT NULL comment 'lookup', keyword varchar(1400) DEFAULT NULL, hour int(10) DEFAULT 0, type varchar(20) DEFAULT NULL, pv int(10) DEFAULT 0) ENGINE=BRIGHTHOUSE DEFAULT CHARSET=utf8;"
+echo "CREATE TABLE  $table  (title varchar(1500) DEFAULT NULL, abtest int(10) DEFAULT 0,eclpv int(10) DEFAULT 0,click int(10) DEFAULT 0,position int(10) DEFAULT 0, clickid varchar(20) DEFAULT NULL comment 'lookup', keyword varchar(1400) DEFAULT NULL, hour int(10) DEFAULT 0, type varchar(20) DEFAULT NULL, pv int(10) DEFAULT 0,day varchar(20) DEFAULT NULL comment 'lookup',jhid varchar(20) DEFAULT NULL comment 'lookup') ENGINE=BRIGHTHOUSE DEFAULT CHARSET=utf8;"
 
-echo "CREATE TABLE  $table  (title varchar(1500) DEFAULT NULL, abtest int(10) DEFAULT 0,eclpv int(10) DEFAULT 0,click int(10) DEFAULT 0,position int(10) DEFAULT 0, clickid varchar(20) DEFAULT NULL comment 'lookup', keyword varchar(1400) DEFAULT NULL, hour int(10) DEFAULT 0, type varchar(20) DEFAULT NULL, pv int(10) DEFAULT 0) ENGINE=BRIGHTHOUSE DEFAULT CHARSET=utf8;"| $TGTMYSQL -D $TGTDB
+echo "CREATE TABLE  $table  (title varchar(1500) DEFAULT NULL, abtest int(10) DEFAULT 0,eclpv int(10) DEFAULT 0,click int(10) DEFAULT 0,position int(10) DEFAULT 0, clickid varchar(20) DEFAULT NULL comment 'lookup', keyword varchar(1400) DEFAULT NULL, hour int(10) DEFAULT 0, type varchar(20) DEFAULT NULL, pv int(10) DEFAULT 0,day varchar(20) DEFAULT NULL comment 'lookup',jhid varchar(20) DEFAULT NULL comment 'lookup') ENGINE=BRIGHTHOUSE DEFAULT CHARSET=utf8;"| $TGTMYSQL -D $TGTDB
 
 
 # start loader
@@ -42,6 +42,7 @@ echo "load data infile '"${OFILE}"'  IGNORE into table" $table " fields terminat
 echo "SHOW VARIABLES like 'character_set_database'" | $TGTMYSQL -D $TGTDB 
 echo $TGTMYSQL -D $TGTDB 
 #echo "set character_set_database=utf8;set character_set_client=utf8; set character_set_connection=utf8; set names utf8; load data infile '"${OFILE}"'  IGNORE into table" $table " fields terminated by '\t' ; " | $TGTMYSQL -D $TGTDB 
+echo "load data LOCAL infile '"${OFILE}"' into table" $table " fields terminated by '\t' ; "  
 echo "load data LOCAL infile '"${OFILE}"' into table" $table " fields terminated by '\t' ; " | $TGTMYSQL -D $TGTDB 
 #rm $OFILE
 

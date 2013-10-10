@@ -41,11 +41,12 @@ if [ $? -ne 0 ]; then
 else
     echo `date` "Successfully processed the multivrPC.pig for $DATE"
 fi
-echo cat $RESULTBASE/vr/title_vr/part-r-0000? > $RESULTBASE/vr/title_vr/part-all
-cat $RESULTBASE/vr/title_vr/part-r-0000? > $RESULTBASE/vr/title_vr/part-all
+echo cat $RESULTBASE/vr/title_vr/part-r-000?? > $RESULTBASE/vr/title_vr/part-all
+cat $RESULTBASE/vr/title_vr/part-r-000?? > $RESULTBASE/vr/title_vr/part-all
 echo sh sload.sh $DATE $RESULTBASE/vr/title_vr/part-all multivr_pc
 sh sload.sh $DATE $RESULTBASE/vr/title_vr/part-all multivr_pc
 
+rm -rf $DATE $DATE $RESULTBASE/vr
 #add other category which like vr to datebase
 #cd ./translate/
 #pwd
