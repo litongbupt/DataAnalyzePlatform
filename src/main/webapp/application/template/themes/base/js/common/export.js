@@ -50,7 +50,7 @@ function exportListIn(data){
 	$("#exportDialog" ).load(golbal_context+"/application/modules/common/export_dialog.jsp", function(){
 		//默认的最大导出条数
 		defaultMaxExportRows=1000;
-		$("#maxExportRows").val(1000);
+		$("#maxExportRows").val(defaultMaxExportRows);
 //		$.post("/INMS/system/exportConfig.do?p=getExportConfig", function(data){
 //			var dobject = $.parseJSON(data);
 //			$("#maxExportRows").val(dobject.result);
