@@ -91,6 +91,7 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
  		 <property name="sqlSessionFactory" ref="sqlSessionFactoryPC" />  
 	</bean>    
     
+    <!--
     <bean id="dataSourceWAP" class="org.apache.commons.dbcp.BasicDataSource" 
         destroy-method="close"> 
         <property name="driverClassName" value="${driverWAP}" /> 
@@ -130,18 +131,17 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
     <bean id="sqlSessionFactoryWAP" class="org.mybatis.spring.SqlSessionFactoryBean"> 
         <property name="dataSource" ref="dataSourceWAP" /> 
     </bean> 
-    
-    <!-- PC多VR词表查询Mapper -->
+      -->
+    <!-- PC多VR词表查询Mapper 
 	<bean id="wordWAPMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
  		 <property name="mapperInterface" value="com.bupt.app.multivrWAP.dao.WordWAPMapper" />  
  		 <property name="sqlSessionFactory" ref="sqlSessionFactoryWAP" />  
 	</bean>
-
-    <!-- PC多VR词表查询Mapper
+	-->
+    <!-- PC多VR统计查询Mapper
 	<bean id="statisticsWAPMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
  		 <property name="mapperInterface" value="com.bupt.app.multivrWAP.dao.StatisticsWAPMapper" />  
  		 <property name="sqlSessionFactory" ref="sqlSessionFactoryWAP" />  
 	</bean>   
 	 -->
-	
 </beans>

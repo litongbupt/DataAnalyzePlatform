@@ -47,7 +47,7 @@ public class WordWAPServiceImpl implements WordWAPService {
 	private static Map<String, List<String>> importWords = new HashMap<String,List<String>>();
 	Map<String, String> vrMap;
 	
-	@Resource(name="wordWAPMapper")
+	//@Resource(name="wordWAPMapper")
 	private WordWAPMapper wordWAPMapper;
 	
 	private Map<Integer,Integer> totalRecordMap = new TreeMap<Integer,Integer>();
