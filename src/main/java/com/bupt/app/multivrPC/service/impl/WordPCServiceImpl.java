@@ -363,6 +363,7 @@ public class WordPCServiceImpl implements WordPCService {
 	public Map<String, String> getJhidMap() {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("1001", "人物聚合");
+		map.put("0", "非聚合");
 		return map;
 	}
 

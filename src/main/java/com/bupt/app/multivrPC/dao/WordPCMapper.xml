@@ -79,7 +79,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by clickid, type, keyword,hour,jhid
+    group by clickid, type, keyword,hour
     <if test="orderByClause != null" >
       order by ${orderByClause}, pv desc
     </if>
@@ -100,7 +100,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by clickid, type, keyword,jhid
+    group by clickid, type, keyword
     <if test="orderByClause != null" >
       order by ${orderByClause}, pv desc
     </if>
@@ -117,7 +117,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by clickid, type, keyword,hour,jhid) as t1;
+    group by clickid, type, keyword,hour) as t1;
   </select>
   
   <select id="countDayByExample" parameterType="com.bupt.app.multivrPC.model.WordPCExample" resultType="java.lang.Integer" >
@@ -125,7 +125,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    group by clickid,type, keyword,jhid) as t1
+    group by clickid,type, keyword) as t1
   </select>
 
 </mapper>
