@@ -1,45 +1,40 @@
-package com.bupt.app.multivrWAP.dto;
+package com.bupt.app.multivrWAP.model;
 
-public class WordWAPDTO {
+public class StatisticsWAP {
 
     private Integer id;
 
-    private String keyword;
 
-    private String pagetype;
+    private Byte pagetype;
+
 
     private String vrid;
-    
-    private String type;
 
-	private Byte linkid;
+
+    private Byte linkid;
+
 
     private Float vrposav;
 
+ 
     private Integer pvnum;
 
+  
     private Integer clicknum;
+
 
     private Integer endclicknum;
 
+
     private Integer hour;
+
 
     private String jhid;
 
+
     private String date;
-    
-    private String consumption;
 
-	private String ctr;
 
-    public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-    
     public Integer getId() {
         return id;
     }
@@ -50,22 +45,12 @@ public class WordWAPDTO {
     }
 
 
-    public String getKeyword() {
-        return keyword;
-    }
-
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword == null ? null : keyword.trim();
-    }
-
-
-    public String getPagetype() {
+    public Byte getPagetype() {
         return pagetype;
     }
 
 
-    public void setPagetype(String pagetype) {
+    public void setPagetype(Byte pagetype) {
         this.pagetype = pagetype;
     }
 
@@ -157,23 +142,4 @@ public class WordWAPDTO {
     public void setDate(String date) {
         this.date = date == null ? null : date.trim();
     }
-
-
-	public void setConsumption(String consumption) {
-		this.consumption = consumption;
-	}
-	
-	public String getConsumption(){
-		return this.consumption;
-	}
-	
-
-	public String getCtr() {
-		return ctr;
-	}
-
-	public void setCtr(String ctr) {
-		this.ctr = ctr;
-	}
-
 }

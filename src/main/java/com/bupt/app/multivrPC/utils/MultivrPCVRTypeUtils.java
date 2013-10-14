@@ -38,14 +38,8 @@ public class MultivrPCVRTypeUtils {
 		
 		if(map==null){
 			map = new HashMap<String,String>();
-			//map.put("100601", "100601");
-			//map.put("100602", "100602");
-			//map.put("100603", "100603");
-			//map.put("209602", "209602");
-			//map.put("20009604", "酷讯机票国内城市到城市带flash");
 			map.put("90000010_1", "翻译长句");
 			map.put("90000010_2", "翻译词典");
-			//map.put("40001701", "无线-人物互动");
 			map.put("20121302", "医院聚合");
 			map.put("1111111", "specialbaike");
 			map.put("10001501", "著作");

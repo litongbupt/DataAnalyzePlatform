@@ -43,7 +43,7 @@ public class WordWAPAction extends JqGridBaseAction<WordWAPDTO>{
 	private final Log log = LogFactory.getLog(getClass());
 	private boolean debug = log.isDebugEnabled();
 	
-	//@Resource(name="wordWAPService")
+	@Resource(name="wordWAPService")
 	private WordWAPService wordWAPService;
 
 	@Override

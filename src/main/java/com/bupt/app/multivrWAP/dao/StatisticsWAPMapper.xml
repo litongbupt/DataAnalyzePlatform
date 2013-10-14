@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.app.multivrWAP.dao.StatisticsWAPMapper" >
+  <resultMap id="BaseResultMap" type="com.bupt.app.multivrWAP.model.StatisticsWAP" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pageType" property="pagetype" jdbcType="TINYINT" />
+    <result column="vrid" property="vrid" jdbcType="VARCHAR" />
+    <result column="linkid" property="linkid" jdbcType="TINYINT" />
+    <result column="vrposAV" property="vrposav" jdbcType="REAL" />
+    <result column="pvnum" property="pvnum" jdbcType="INTEGER" />
+    <result column="clicknum" property="clicknum" jdbcType="INTEGER" />
+    <result column="endclicknum" property="endclicknum" jdbcType="INTEGER" />
+    <result column="hour" property="hour" jdbcType="INTEGER" />
+    <result column="jhid" property="jhid" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="DayResultMap" type="com.bupt.app.multivrWAP.model.StatisticsWAP" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pageType" property="pagetype" jdbcType="TINYINT" />
+    <result column="vrid" property="vrid" jdbcType="VARCHAR" />
+    <result column="linkid" property="linkid" jdbcType="TINYINT" />
+    <result column="vrposAV" property="vrposav" jdbcType="REAL" />
+    <result column="pvnum" property="pvnum" jdbcType="INTEGER" />
+    <result column="clicknum" property="clicknum" jdbcType="INTEGER" />
+    <result column="endclicknum" property="endclicknum" jdbcType="INTEGER" />
+    <result column="jhid" property="jhid" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+	<sql id="Base_Column_List">
+		id,  pageType, vrid, linkid, avg(vrposAV), pvnum, clicknum,
+		endclicknum, hour, jhid, date
+	</sql>
+  
+  	<sql id="Day_Column_List">
+		 pageType, vrid, linkid, avg(vrposAV), sum(pvnum) as pvnum, sum(clicknum) as clicknum , sum(endclicknum), jhid, date
+	</sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bupt.app.multivrWAP.model.StatisticsWAPExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_detail_${date}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    group by  linkid, vrid,  pageType, hour
+    <if test="orderByClause != null" >
+      order by ${orderByClause}, pvnum desc
+    </if>
+    <if test="start != null">
+      <if test="limit != null">
+       limit ${start},${limit} 
+      </if>
+    </if>    
+  </select>
+
+  <select id="selectDayByExample" resultMap="DayResultMap" parameterType="com.bupt.app.multivrWAP.model.StatisticsWAPExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Day_Column_List" />
+    from tb_detail_${date}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    group by  linkid, vrid, pageType
+    <if test="orderByClause != null" >
+      order by ${orderByClause}, pvnum desc
+    </if>
+    <if test="start != null">
+      <if test="limit != null">
+       limit ${start},${limit} 
+      </if>
+    </if>
+  </select>
+  
+  
+  <select id="countByExample" parameterType="com.bupt.app.multivrWAP.model.StatisticsWAPExample" resultType="java.lang.Integer" >
+    select count(*) from tb_detail_${date}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    group by  linkid, vrid,  pageType, hour
+  </select>
+  
+  <select id="countDayByExample" parameterType="com.bupt.app.multivrWAP.model.StatisticsWAPExample" resultType="java.lang.Integer" >
+    select count(*) from (select keyword from tb_detail_${date}  
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    group by  linkid, vrid,  pageType) as t1
+  </select>
+</mapper>

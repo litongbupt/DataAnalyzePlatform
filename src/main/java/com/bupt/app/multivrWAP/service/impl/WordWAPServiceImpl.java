@@ -47,7 +47,7 @@ public class WordWAPServiceImpl implements WordWAPService {
 	private static Map<String, List<String>> importWords = new HashMap<String,List<String>>();
 	Map<String, String> vrMap;
 	
-	//@Resource(name="wordWAPMapper")
+	@Resource(name="wordWAPMapper")
 	private WordWAPMapper wordWAPMapper;
 	
 	private Map<Integer,Integer> totalRecordMap = new TreeMap<Integer,Integer>();
@@ -198,16 +198,9 @@ public class WordWAPServiceImpl implements WordWAPService {
 			WordWAPExample wordWAPExample,String timelevel) {
 		importWords.clear();
 		if(vrMap==null){
-			vrMap = MultivrPCVRTypeUtils.getVRType();
-			vrMap.putAll(MultivrWAPVRTypeUtils.getVRType());
-			vrMap.put("JH001", "交通聚合");
-			vrMap.put("JH002", "人物聚合");
-			vrMap.put("JH003", "彩票聚合");
-			vrMap.put("JH004", "小说聚合");
-			vrMap.put("JH005", "导航聚合");
-			vrMap.put("JH006", "电视剧聚合");
-			vrMap.put("JH007", "旅游聚合");
+			vrMap = getTypeMap();
 		}
+		Map<String, String> pageTypeMap = getPageTypeMap();
 		List<WordWAPDTO> wordDTOList = new ArrayList<WordWAPDTO>();
 		List<WordWAP> wordWAPs = null;
 		if(timelevel.equals("hour")){
@@ -223,6 +216,11 @@ public class WordWAPServiceImpl implements WordWAPService {
 			wordWAPDTO.setVrid(wordWAP.getVrid());
 			if(vrMap.containsKey(wordWAP.getVrid())){
 				wordWAPDTO.setType(vrMap.get(wordWAP.getVrid()));
+			}else{
+				wordWAPDTO.setType("未找到该类型名");
+			}
+			if(pageTypeMap.containsKey(wordWAP.getPagetype()+"")){
+				wordWAPDTO.setPagetype(pageTypeMap.get(wordWAP.getPagetype()+""));
 			}
 			try {
 				wordWAPDTO.setKeyword(URLDecoder.decode(wordWAPDTO.getKeyword(),"utf8"));

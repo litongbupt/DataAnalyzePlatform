@@ -1,10 +1,7 @@
 package com.bupt.app.multivrWAP.dto;
 
-public class WordWAPDTO {
-
+public class StatisticsWAPDTO {
     private Integer id;
-
-    private String keyword;
 
     private String pagetype;
 
@@ -48,17 +45,6 @@ public class WordWAPDTO {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword == null ? null : keyword.trim();
-    }
-
 
     public String getPagetype() {
         return pagetype;
@@ -175,5 +161,4 @@ public class WordWAPDTO {
 	public void setCtr(String ctr) {
 		this.ctr = ctr;
 	}
-
 }
